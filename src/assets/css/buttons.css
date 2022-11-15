@@ -1,0 +1,20 @@
+
+
+
+button {
+    border-radius: 50px;
+}
+
+
+button:hover, button:focus, .btn-link:hover, .btn-link:focus {
+    opacity:0.7;
+}
+
+
+.btn-link {
+    text-decoration: none;
+    border-radius: 50px;
+    padding:0.5rem 2rem;
+    font-weight: 600;
+    color: var(--blue-royal);
+}
