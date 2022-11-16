@@ -10,10 +10,13 @@ button {
 }
 
 
-button:hover, button:focus, .btn-link:hover, .btn-link:focus {
+button:hover, .btn-link:hover  {
     opacity:0.7;
 }
 
+button:focus, .btn-link:focus{
+    background-color: var(--gray);
+}
 
 .btn-link {
     text-decoration: none;
@@ -30,4 +33,21 @@ button:hover, button:focus, .btn-link:hover, .btn-link:focus {
     font-size: 1rem;
     margin:0;
 }
+
 .btn-add i { margin-right: 0.3rem;}
+
+
+.btn-close {
+    padding:0.5rem 1.5rem 0.5rem 1.5rem;
+    font-size:1rem;
+    margin:0;
+    border: 0.5px solid gray;
+
+}
+
+.btn-confirm {
+    padding:0.5rem 1.5rem 0.5rem 1.5rem;
+    font-size:1rem;
+    margin:0;
+    color:white;
+}

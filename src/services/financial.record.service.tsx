@@ -1,13 +1,16 @@
 import { financialRecordsData } from "../data/financial.records.data";
 
 
-
+const records = financialRecordsData;
 
 class FinancialRecordService {
 
-    getData(){
-        const records = financialRecordsData;
+    GetAll(){
         return records;
+    }
+
+    Get(id:number){
+        return records.find(item => item.id == id);
     }
 
 }

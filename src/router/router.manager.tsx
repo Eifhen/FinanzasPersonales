@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FinanceRecordPage from "../pages/finance.record.page";
+import FinancialRecordsPage from "../pages/financial.records.page";
 import HomePage from "../pages/home.page";
 
 
@@ -11,7 +11,7 @@ export default function RouterManager (): JSX.Element {
             <Routes>
                 <Route path="/" element={ <HomePage/> }/>
                 <Route path="/home" element={ <HomePage/> }/>
-                <Route path="/finance-record" element={<FinanceRecordPage/>} />
+                <Route path="/financial-records" element={<FinancialRecordsPage/>} />
             </Routes>
         </BrowserRouter>
     );

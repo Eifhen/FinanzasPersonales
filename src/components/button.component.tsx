@@ -4,7 +4,7 @@ interface button {
     title:string;
     className:string;
     icon:string;
-    hasIcon:boolean;
+    //hasIcon:boolean;
     disabled?:boolean;
     action?(): void;
 }
@@ -12,9 +12,16 @@ interface button {
 
 export default function Button (props:button){
 
-    const icon = props.hasIcon ? <i className={`${props.icon}`}></i> : <></>;
+    const icon = props.icon ? <i className={`${props.icon}`}></i> : <></>;
+
+    function Action(){
+        if(props.action){
+            props.action();
+        }
+    }
+
     return (
-        <button onClick={ props.action } className={`${props.className}`} disabled={props.disabled}>
+        <button onClick={ Action } className={`${props.className}`} disabled={props.disabled}>
              {icon} {props.title}
         </button>
     );

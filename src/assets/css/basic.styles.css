@@ -258,11 +258,17 @@ footer p { padding:0; margin:0; }
 
 /* -------- [ Borders ] ------- */
 
-.rounded {  border-radius:5px;}
+.rounded {  border-radius: 5px;}
 .rounded-top { border-top-left-radius: 5px; border-top-right-radius: 5px;}
 .rounded-bottom { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;}
 .rounded-left { border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
 .rounded-right { border-top-right-radius: 5px; border-bottom-right-radius: 5px;}
+
+.rounded-35 {  border-radius: 35px;}
+.rounded-top-35 { border-top-left-radius: 35px; border-top-right-radius: 35px;}
+.rounded-bottom-35 { border-bottom-left-radius: 35px; border-bottom-right-radius: 35px;}
+.rounded-left-35 { border-top-left-radius: 35px; border-bottom-left-radius: 35px;}
+.rounded-right-35 { border-top-right-radius: 35px; border-bottom-right-radius: 35px;}
 
 .rounded-pill-top { border-top-left-radius: 50px; border-top-right-radius: 50px;}
 .rounded-pill-bottom { border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;}

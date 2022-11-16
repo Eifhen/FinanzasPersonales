@@ -7,7 +7,7 @@ export default function HomePage(){
     return (
         <main className="f-roboto fade-in">
             <section className="h-100vh align-column-center">
-                <BrandLogo type="big" title="Continuar" path="/finance-record" />
+                <BrandLogo type="big" title="Continuar" path="/financial-records" />
             </section>
         </main>
     );

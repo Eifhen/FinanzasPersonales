@@ -3,7 +3,7 @@
 @import url("brand.component.css");
 @import url("buttons.css");
 @import url("navbar.component.css");
-
+@import url("modal.css");
 
 
 .fade-in{  animation:fadeIn 2.5s; }
@@ -14,7 +14,7 @@
 
 .f-roboto {font-family: 'Roboto', sans-serif;}
 
-.container { width:90%; }
+.container { width:80%; }
 
 
 
