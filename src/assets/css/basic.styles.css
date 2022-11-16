@@ -10,6 +10,7 @@
     --blue:#75c0e0;
     --blue-royal:#194a8d;
     --yellow:#fecf6a;
+    --green: #00C853;
 
     --shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
     --shadow-sm: 0 .125rem .25rem rgba(0,0,0,.075)!important;
@@ -41,6 +42,20 @@ section {
     padding:2rem;
     background-color: var(--gray-light);
 }
+
+a { text-decoration: none;}
+
+
+footer {
+    background: var(--white);
+    color:var(--gray);
+    text-align: center;
+    padding: 1.1rem;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+footer p { padding:0; margin:0; }
 
 /****************************************
 *************** Utilities ***************
@@ -152,6 +167,16 @@ section {
     flex-direction: column;
 }
 
+.align-column-between {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.align-seft-center { align-self: center; }
+.align-seft-baseline { align-self: baseline; }
+
+
 .column-reverse { flex-direction: column-reverse; }
 .row-reverse { flex-direction: row-reverse; }
 
@@ -202,6 +227,7 @@ section {
 .bg-yellow { background: var(--yellow)}
 .bg-blue-royal { background:var(--blue-royal); }
 .bg-blue {background:var(--blue); }
+.bg-green { background:var(--green);}
 
 /* -------- [ Rows & Columns ] ------- */
 
