@@ -43,7 +43,9 @@ section {
     background-color: var(--gray-light);
 }
 
-a { text-decoration: none;}
+a { text-decoration: none; color: var(--blue-royal)}
+
+a:hover { opacity: 0.8;}
 
 
 footer {
@@ -56,6 +58,53 @@ footer {
 }
 
 footer p { padding:0; margin:0; }
+
+
+fieldset { border:none; padding:1rem;}
+
+input { 
+    border:none; 
+    border-radius: 50px; 
+    display:block;
+    padding:0.5rem 1rem;
+    margin: 0.5rem 0;
+    background: var(--gray-light);
+    width:100%;
+    font-size:1rem;
+}
+
+input:focus {
+    outline: solid 1px orange;
+    color: orange;
+    background:white;
+}
+
+label {
+    font-weight: 600;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--gray);
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+  
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
 
 /****************************************
 *************** Utilities ***************
@@ -195,6 +244,7 @@ footer p { padding:0; margin:0; }
 .text-yellow { color: var(--yellow); }
 .text-orange { color: orange; }
 .text-blue-royal { color: var(--blue-royal)}
+.text-green {color: var(--green);}
 
 .text-center { text-align: center; }
 .text-justify { text-align: justify; }
@@ -333,6 +383,14 @@ footer p { padding:0; margin:0; }
 .h-100vh { height:100vh;}
 
 .h-100 { height: 100%; }
+
+.w-10 { width:10%; }
+.w-15 { width:15%; }
+.w-20 { width:20%; }
+.w-25 { width:25%; }
+.w-30 { width:30%; }
+.w-35 { width:35%; }
+.w-40 { width:40%; }
 .w-100 { width: 100%; }
 
 /****************************************

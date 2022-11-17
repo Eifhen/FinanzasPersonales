@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url("./basic.styles.css");
+@import url("./general.css");
 @import url("brand.component.css");
 @import url("buttons.css");
 @import url("navbar.component.css");
 @import url("modal.css");
-
+@import url("finance.card.css");
 
 .fade-in{  animation:fadeIn 2.5s; }
 
@@ -14,9 +14,11 @@
 
 .f-roboto {font-family: 'Roboto', sans-serif;}
 
-.container { width:80%; }
+.container { width:85%; }
 
-
+@media( max-width: 700px){
+   .container {width:100%;}
+}
 
 .page-header {
     display:flex;
@@ -43,4 +45,44 @@
     margin:0;
     padding:0;
     color: var(--blue-royal);
+}
+
+.icon-delete {
+    color:var(--gray);
+}
+
+.icon-edit {
+    margin-right:0.5rem;
+    color:var(--gray);
+}
+
+.icon-edit:hover {
+    color:var(--green);
+}
+
+.icon-delete:hover{
+    color:var(--wine);
+}
+
+@media(max-width:700px){
+
+    .page-header {
+        padding:0 2rem;
+    }
+
+    .page-header h1 {
+        line-height: 2rem;
+        font-weight: 100;
+    }
+
+    .page-header h1 i {
+        font-weight: 300 !important;
+        font-size: 4rem;
+        margin-right: 0;
+    }
+
+    .page-header p {
+        margin-top: 0.4rem;
+        margin-left:0.4rem ;
+    }
 }

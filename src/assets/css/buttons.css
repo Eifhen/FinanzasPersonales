@@ -9,6 +9,10 @@ button {
     cursor:pointer;
 }
 
+button:disabled {
+    background-color: var(--gray);
+    opacity:0.7;
+}
 
 button:hover, .btn-link:hover  {
     opacity:0.7;
@@ -16,6 +20,7 @@ button:hover, .btn-link:hover  {
 
 button:focus, .btn-link:focus{
     background-color: var(--gray);
+    color:white;
 }
 
 .btn-link {
@@ -41,8 +46,9 @@ button:focus, .btn-link:focus{
     padding:0.5rem 1.5rem 0.5rem 1.5rem;
     font-size:1rem;
     margin:0;
-    border: 0.5px solid gray;
-
+    color: var(--gray);
+    font-weight: 600;
+    border: 1px solid var(--gray-light);
 }
 
 .btn-confirm {
