@@ -16,7 +16,7 @@ export default function Navbar(){
                 </div>
                 <ul className="navbar-items">
                     <li>
-                        <Link to="#">Option1</Link>
+                        <Link to="/global-records">Global records</Link>
                     </li>
                     <li>
                         <Link to="#">Option2</Link>

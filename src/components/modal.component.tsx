@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { FinanceRecordContext } from '../context/finance.record.context';
+import { FinanceRecordContext } from '../context/global.record.context';
 import { IModalObj } from '../interfaces/modal.interface';
 
 

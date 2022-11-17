@@ -152,7 +152,7 @@
     box-shadow: var(--shadow);
     background-color: white; 
     margin:1rem 0;
-    padding:0.5rem;
+    padding:1.3rem;
     transition: margin 500ms ease, box-shadow 500ms ease;
 }
 
@@ -171,6 +171,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin:0;
+    padding:0;
 }
 
 .record-item i:hover {

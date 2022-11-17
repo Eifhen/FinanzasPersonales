@@ -1,54 +1,58 @@
 
-import {useEffect, useState, createContext} from 'react';
+import {useEffect, useState, createContext } from 'react';
 import { IModal } from '../interfaces/modal.interface';
 
-import financialRecordService from '../services/financial.record.service';
-import { FinancialRecordsForm } from '../forms/financial.records.form';
-import IFinancialRecords from '../interfaces/financial.records.interface';
+import { MonthRecordForm } from '../forms/month.record.form';
+import IYearRecord, { IMonthRecord } from '../interfaces/financial.records.interface';
 import dateHandler from '../helpers/date.helper';
-import { IFinancialRecordGlobalReport } from '../interfaces/financial.records.interface';
+import yearRecordService from '../services/year.record.service';
+import { useParams } from 'react-router-dom';
 
 
-interface FinanceRecordProvider {
+interface YearRecordProvider {
     modal:IModal;
-    openModal(type:string, data?:IFinancialRecords): void;
-    form:IFinancialRecords;
+    openModal(type:string, data?:IMonthRecord): void;
+    form:IMonthRecord;
     HandleForm(event:any): void;
-    getAllData(): Array<IFinancialRecords>;
-    globalReport(): IFinancialRecordGlobalReport;
+    getAllData(): Array<IMonthRecord>;
+    yearReport(): IYearRecord;
 }
 
-const emptyForm:IFinancialRecords = {
+const emptyForm:IMonthRecord = {
     id: 0,
     title: '',
     date: '',
+    month: '',
+    total_saved: 0,
     total_incomes: 0,
     total_expendings: 0,
-    total_saved: 0
+    id_year_financial_record: 0
 }
 
-const FinanceRecordContext = createContext({} as FinanceRecordProvider);
+const YearRecordContext = createContext({} as YearRecordProvider);
 
-function FinanceRecordProvider (props:any){
+function YearRecordProvider (props:any){
     const [modal, setModal] = useState({} as IModal);
     const [modalType, setModalType] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [form, setForm] = useState(emptyForm);
-    const service = financialRecordService;
+    const params = useParams();
+    const id_year_record = Number(params.id);
+    const service = yearRecordService;
 
     // Gestión de datos
 
-    function getAllData() : Array<IFinancialRecords> {
-        return service.GetAll();
+    function getAllData() : Array<IMonthRecord> {
+        return service.GetAll(id_year_record);
     }
 
-    function globalReport() : IFinancialRecordGlobalReport {
-        return service.GlobalReport();
+    function yearReport() : IYearRecord {
+        return service.yearReport(id_year_record);
     }
 
     // Gestión de Modals 
 
-    function openModal(type:string, data:IFinancialRecords){
+    function openModal(type:string, data:IMonthRecord){
         setModalType(type);
         setModalOpen(true);
         if(data){
@@ -64,7 +68,7 @@ function FinanceRecordProvider (props:any){
 
     function ModalHandler() : IModal {
 
-        const financialRecordsForm = (<FinancialRecordsForm/>);
+        const financialRecordsForm = (<MonthRecordForm/>);
 
         const add:IModal = {
             mode:modalType,
@@ -134,7 +138,7 @@ function FinanceRecordProvider (props:any){
     }
 
     function HandleForm(event:any){
-        setForm((form:IFinancialRecords) => {
+        setForm((form:IMonthRecord) => {
             const {id, value} = event.target;
             return {...form, [id]:value};
         })
@@ -144,7 +148,7 @@ function FinanceRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Insert(form)){
+            if(service.Insert(form, id_year_record)){
                 setModal((modal:IModal) => {
                     const msg = "The record has been added successfully";
                     const msgColor = "text-green"
@@ -233,17 +237,17 @@ function FinanceRecordProvider (props:any){
     }, [form, modalOpen]);
 
 
-    const data:FinanceRecordProvider = { 
-        openModal, modal, form, HandleForm, getAllData, globalReport
+    const data:YearRecordProvider = { 
+        openModal, modal, form, HandleForm, getAllData, yearReport
     };
 
     return(
-        <FinanceRecordContext.Provider value={data}>
+        <YearRecordContext.Provider value={data}>
             {props.children}
-        </FinanceRecordContext.Provider>
+        </YearRecordContext.Provider>
     );
 }
 
 
-export { FinanceRecordProvider, FinanceRecordContext}
+export { YearRecordProvider, YearRecordContext}
 

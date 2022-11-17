@@ -189,19 +189,19 @@ background: #555;
 
 .flex-column { flex-direction: column;}
 
-.justify-center { justify-content:center; }
-.justify-end { justify-content:end; }
-.justify-start { justify-content: start;}
-.justify-between { justify-content: space-between;}
-.justify-space-around { justify-content: space-around;}
+.justify-center { justify-content:center !important; }
+.justify-end { justify-content:end !important; }
+.justify-start { justify-content: start !important;}
+.justify-between { justify-content: space-between !important;}
+.justify-space-around { justify-content: space-around !important;}
 
-.align-items-center { align-items: center; }
-.align-items-end { align-items: end; }
-.align-items-start { align-items: start; }
+.align-items-center { align-items: center !important; }
+.align-items-end { align-items: end !important; }
+.align-items-start { align-items: start !important; }
 
-.align-self-start { align-self:flex-start;}
-.align-self-center { align-self: center;}
-.align-self-end { align-self: flex-end;}
+.align-self-start { align-self:flex-start !important;}
+.align-self-center { align-self: center !important;}
+.align-self-end { align-self: flex-end !important;}
 
 .align-center {
     display:flex;
@@ -246,10 +246,10 @@ background: #555;
 .text-blue-royal { color: var(--blue-royal)}
 .text-green {color: var(--green);}
 
-.text-center { text-align: center; }
-.text-justify { text-align: justify; }
-.text-left { text-align: left;}
-.text-right { text-align: right;}
+.text-center { text-align: center !important; }
+.text-justify { text-align: justify !important; }
+.text-left { text-align: left !important;}
+.text-right { text-align: right !important;}
 
 .text-italic { font-style: italic; }
 .text-capitalize { text-transform: capitalize; }

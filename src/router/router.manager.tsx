@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FinancialRecordDetailPage from "../pages/financial.records.detail.page";
-import FinancialRecordsPage from "../pages/financial.records.page";
+import YearRecordPage from "../pages/year.record.page";
+import GlobalRecordsPage from "../pages/global.records.page";
 import HomePage from "../pages/home.page";
 
 
@@ -12,8 +12,8 @@ export default function RouterManager (): JSX.Element {
             <Routes>
                 <Route path="/" element={ <HomePage/> }/>
                 <Route path="/home" element={ <HomePage/> }/>
-                <Route path="/financial-records" element={<FinancialRecordsPage/>} />
-                <Route path="/financial-records/:id" element={<FinancialRecordDetailPage/>} />
+                <Route path="/global-records" element={<GlobalRecordsPage/>} />
+                <Route path="/year-record/:id" element={<YearRecordPage/>} />
             </Routes>
         </BrowserRouter>
     );

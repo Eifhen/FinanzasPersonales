@@ -1,27 +1,29 @@
-import { financialRecordsData } from "../data/financial.records.data";
-import IFinancialRecords, { IFinancialRecordGlobalReport } from '../interfaces/financial.records.interface';
+import { yearsRecordData } from "../data/years.record.data";
+import IYearRecord, { IGlobalRecord } from '../interfaces/financial.records.interface';
 
 
-const records = financialRecordsData;
+const records = yearsRecordData;
 
-class FinancialRecordService {
+class GlobalRecordsService {
 
-    GetAll():Array<IFinancialRecords>{
+    GetAll():Array<IYearRecord>{
         return records;
     }
 
-    Get(id:number){
-        return records.find(item => item.id == id);
+    Get(id:number) : IYearRecord | undefined {
+
+        const find = records.find(item => item.id == id);
+        return find;
     }
 
-    Insert(data:IFinancialRecords) : boolean {
+    Insert(data:IYearRecord) : boolean {
         data.id = Math.floor(Math.random() * 999);
         records.push(data);
         console.log("record inserted =>", records);
         return true;
     }
 
-    Update(data:IFinancialRecords) : boolean {
+    Update(data:IYearRecord) : boolean {
         const item = records.find( element => element.id === data.id);
         if(item){
             item.date = data.date;
@@ -39,7 +41,7 @@ class FinancialRecordService {
     }
 
 
-    Delete(data:IFinancialRecords) : boolean {
+    Delete(data:IYearRecord) : boolean {
         console.log("delete =>", data);
         const find = records.find(item => item.id === data.id);
         if(find){
@@ -57,9 +59,9 @@ class FinancialRecordService {
     }
 
 
-    GlobalReport() : IFinancialRecordGlobalReport {
+    GlobalReport() : IGlobalRecord {
         
-        const report:IFinancialRecordGlobalReport = {
+        const report:IGlobalRecord = {
             total_incomes: 0,
             total_expendings: 0,
             total_saved: 0
@@ -77,5 +79,5 @@ class FinancialRecordService {
 }
 
 
-const financialRecordService = new FinancialRecordService();
+const financialRecordService = new GlobalRecordsService();
 export default financialRecordService;

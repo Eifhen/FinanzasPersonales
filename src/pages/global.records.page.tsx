@@ -5,24 +5,24 @@ import Footer from '../components/footer.component';
 import Header from '../components/header.component';
 import Modal from '../components/modal.component';
 import Navbar from '../components/navbar.component';
-import { FinanceRecordContext, FinanceRecordProvider } from '../context/finance.record.context';
+import { GlobalRecordContext, GlobalRecordProvider } from '../context/global.record.context';
 import dateHandler from '../helpers/date.helper';
 
 
-export default function FinancialRecordsPage (){
+export default function GlobalRecordsPage (){
     return(
-        <FinanceRecordProvider>
-            <FinancialRecordsPageContent/>
-        </FinanceRecordProvider>
+        <GlobalRecordProvider>
+            <GlobalRecordPageContent/>
+        </GlobalRecordProvider>
     )
 }
 
-function FinancialRecordsPageContent(){
+function GlobalRecordPageContent(){
 
-    const context = useContext(FinanceRecordContext);
+    const context = useContext(GlobalRecordContext);
     const report = context.globalReport();
     const records = context.getAllData();
-    const path = "/financial-records";
+    const path = "/year-record";
 
     return(
         <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>
@@ -31,8 +31,8 @@ function FinancialRecordsPageContent(){
             </header>
             
             <section className='container h-min-100vh align-self-center bg-pure mb-4'>
-                <Header className="mb-3" title="Financial Records" icon="ri-list-check-2" subtitle="In this view you will be able to see all your financial records by year." />
-                <Button className="btn-add mb-1" title="Add Records" icon="ri-add-line" action={()=> context.openModal("add")} />
+                <Header className="mb-3" title="Global Financial Record" icon="ri-list-check-2" subtitle="In this view you will be able to see all your financial records by year." />
+                <Button className="btn-add mb-1" title="Add Record" icon="ri-add-line" action={()=> context.openModal("add")} />
                 
                 <FinanceCardList path={path} globalReport={ report } records={ records } action={context.openModal} />
 

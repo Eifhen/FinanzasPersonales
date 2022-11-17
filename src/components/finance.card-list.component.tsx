@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
-import IFinancialRecords, { IFinancialRecordGlobalReport } from '../interfaces/financial.records.interface';
-import { IFinancialRecordObj } from '../interfaces/financial.records.interface';
+import IYearRecord, { IGlobalRecord } from '../interfaces/financial.records.interface';
 import dateHandler from '../helpers/date.helper';
 
 
 interface IFinanceCardList {
-    globalReport:IFinancialRecordGlobalReport;
-    records:Array<IFinancialRecords>;
-    action(type:string, data:IFinancialRecords): void;
+    globalReport:IGlobalRecord;
+    records:Array<IYearRecord>;
+    action(type:string, data:IYearRecord): void;
     path:string;
 }
 
 interface IRecordItem {
-    data:IFinancialRecords;
-    action(type:string, data:IFinancialRecords):void;
+    data:IYearRecord;
+    action(type:string, data:IYearRecord):void;
     path:string;
 }
 
@@ -21,7 +20,7 @@ export default function FinanceCardList(props:IFinanceCardList) {
 
     const {records, globalReport} = props;
     
-    const data = records.map((record:IFinancialRecords) => {
+    const data = records.map((record:IYearRecord) => {
         return (<RecordList key={record.id} action={props.action} path={props.path} data={record} />);
     });
 
@@ -59,10 +58,10 @@ export default function FinanceCardList(props:IFinanceCardList) {
             <div className="finance-card p-1 bg-pure mt-1">
                 <header className='record-header '>
                     <ul className='record-row bg-white'>
-                        <li className="record-item fw-bold text-blue-royal w-20 ">Title</li>
-                        <li className="record-item fw-bold text-blue-royal w-25 ">Creation date</li>
-                        <li className="record-item fw-bold text-blue-royal w-15 ">Incomes</li>
-                        <li className="record-item fw-bold text-blue-royal w-15 ">Expendings</li>
+                        <li className="record-item fw-bold text-blue-royal w-25 ">Title</li>
+                        <li className="record-item fw-bold text-blue-royal w-30 ">Creation date</li>
+                        <li className="record-item fw-bold text-blue-royal w-20 ">Incomes</li>
+                        <li className="record-item fw-bold text-blue-royal w-20 ">Expendings</li>
                         <li className="record-item fw-bold text-blue-royal w-15 ">Saved</li>
                         <li className="record-item fw-bold text-blue-royal w-15 ">Actions</li>
                     </ul>
@@ -85,7 +84,7 @@ function RecordList(props:IRecordItem){
     const path = `${props.path}/${props.data.id}`;
 
     const datelocal =  dateHandler.toDateTimeLocal(props.data.date); // para input 
-    const record:IFinancialRecords = {...props.data, date:datelocal }; 
+    const record:IYearRecord = {...props.data, date:datelocal }; 
 
     function HandleEdit(){
         props.action("edit", record);
