@@ -384,6 +384,7 @@ background: #555;
 
 .h-100 { height: 100%; }
 
+.w-auto { width:auto; }
 .w-10 { width:10%; }
 .w-15 { width:15%; }
 .w-20 { width:20%; }
@@ -392,6 +393,14 @@ background: #555;
 .w-35 { width:35%; }
 .w-40 { width:40%; }
 .w-100 { width: 100%; }
+
+
+@media(max-width:700px){
+    .w-auto { width:100%; }
+    .w-15 { width: 100%; }
+    .w-20 { width: 100%; }
+    .w-25 { width: 100%; } 
+}
 
 /****************************************
 *************** Components ***************

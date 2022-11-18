@@ -23,10 +23,7 @@ function YearRecordPageContent(){
     const records = context.getAllData();
     console.log("records =>", records);
 
-   
-
     return(
-
         <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>
             <header>
                 <Navbar />
@@ -47,6 +44,5 @@ function YearRecordPageContent(){
             <Modal data={context.modal}/>
             <Footer />
         </main>
-
     );
 }

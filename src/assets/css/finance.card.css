@@ -110,6 +110,7 @@
 
 .record-header .record-row:hover {
     margin:0;
+    padding:1rem;
     cursor:text;
     box-shadow: none;
     transition: none;
@@ -217,9 +218,7 @@
         padding:1rem 0;
     }
 
-    .w-15 { width: 100%; }
-    .w-20 { width: 100%; }
-    .w-25 { width: 100%; } 
+  
 }
 
 
