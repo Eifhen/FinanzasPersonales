@@ -13,7 +13,7 @@ export const monthRecordsData:Array<IMonthRecord> = [
         id_year_financial_record:123,
     },
     { 
-        id:123, 
+        id:321, 
         title:"gastos agosto", 
         date: dateHandler.getCurrentDate(), 
         month:"Agosto",
@@ -23,7 +23,7 @@ export const monthRecordsData:Array<IMonthRecord> = [
         id_year_financial_record:123,
     },
     { 
-        id:123, 
+        id:444, 
         title:"gastos septiembre", 
         date: dateHandler.getCurrentDate(), 
         month:"Septiembre",

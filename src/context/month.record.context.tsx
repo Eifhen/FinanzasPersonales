@@ -1,63 +1,59 @@
 
 import {useEffect, useState, createContext } from 'react';
 import { IModal } from '../interfaces/modal.interface';
-
-import { MonthRecordForm } from '../forms/month.record.form';
-import IYearRecord, { IMonthRecord } from '../interfaces/financial.records.interface';
-import dateHandler from '../helpers/date.helper';
-import yearRecordService from '../services/year.record.service';
+import { IMonthRecord, IRecord } from '../interfaces/financial.records.interface';
 import { useParams } from 'react-router-dom';
 import { indexObj } from '../interfaces/indexObj.interface';
 import interfaceOf from '../helpers/interface.helper';
+import monthRecordService from '../services/month.record.service';
+import { ItemRecordForm } from '../forms/item.record.form';
 
 
-interface YearRecordProvider {
+interface MonthRecordProvider {
     modal:IModal;
-    openModal(type:string, data?:indexObj<IMonthRecord>): void;
-    form:IMonthRecord;
+    openModal(type:string, data?:indexObj<IRecord>): void;
+    form:IRecord;
     HandleForm(event:any): void;
-    getAllData(): Array<IMonthRecord>;
-    yearReport(): IYearRecord;
+    getAllData(): Array<IRecord>;
+    monthReport(): IMonthRecord;
 }
 
-const emptyForm:IMonthRecord = {
-    id: 0,
-    title: '',
+const emptyForm:IRecord = {
+    id:0,
     date: '',
-    month: '',
-    total_saved: 0,
-    total_incomes: 0,
-    total_expendings: 0,
-    id_year_financial_record: 0
+    cost: 0,
+    title: '',
+    id_month_record: 0,
 }
 
-const YearRecordContext = createContext({} as YearRecordProvider);
+const MonthRecordContext = createContext({} as MonthRecordProvider);
 
-function YearRecordProvider (props:any){
+function MonthRecordProvider (props:any){
     const [modal, setModal] = useState({} as IModal);
     const [modalType, setModalType] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [form, setForm] = useState(emptyForm);
     const params = useParams();
-    const id_year_record = Number(params.id);
-    const service = yearRecordService;
+    const id_month_record = Number(params.id_month_record);
+    const id_year_record = Number(params.id_year_record);
+    const service = monthRecordService;
 
     // Gestión de datos
 
-    function getAllData() : Array<IMonthRecord> {
-        return service.GetAll(id_year_record);
+    function getAllData() : Array<IRecord> {
+        return service.GetAll(id_month_record);
     }
 
-    function yearReport() : IYearRecord {
-        return service.yearReport(id_year_record);
+    function monthReport() : IMonthRecord {
+        return service.monthReport(id_month_record);
     }
 
     // Gestión de Modals 
 
-    function openModal(type:string, data:indexObj<IMonthRecord>){
+    function openModal(type:string, data:indexObj<IRecord>){
         setModalType(type);
         setModalOpen(true);
-        if(interfaceOf<IMonthRecord>(data)){
+        if(interfaceOf<IRecord>(data)){
             setForm(data);
         }
     }
@@ -70,7 +66,7 @@ function YearRecordProvider (props:any){
 
     function ModalHandler() : IModal {
 
-        const financialRecordsForm = (<MonthRecordForm/>);
+        const financialRecordsForm = (<ItemRecordForm/>);
 
         const add:IModal = {
             mode:modalType,
@@ -140,7 +136,7 @@ function YearRecordProvider (props:any){
     }
 
     function HandleForm(event:any){
-        setForm((form:IMonthRecord) => {
+        setForm((form:IRecord) => {
             const {id, value} = event.target;
             return {...form, [id]:value};
         })
@@ -150,7 +146,7 @@ function YearRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Insert(form, id_year_record)){
+            if(service.Insert(form, id_month_record)){
                 setModal((modal:IModal) => {
                     const msg = "The record has been added successfully";
                     const msgColor = "text-green"
@@ -239,17 +235,16 @@ function YearRecordProvider (props:any){
     }, [form, modalOpen]);
 
 
-    const data:YearRecordProvider = { 
-        openModal, modal, form, HandleForm, getAllData, yearReport
+    const data:MonthRecordProvider = { 
+        openModal, modal, form, HandleForm, getAllData, monthReport
     };
 
     return(
-        <YearRecordContext.Provider value={data}>
+        <MonthRecordContext.Provider value={data}>
             {props.children}
-        </YearRecordContext.Provider>
+        </MonthRecordContext.Provider>
     );
 }
 
 
-export { YearRecordProvider, YearRecordContext}
-
+export { MonthRecordProvider, MonthRecordContext}

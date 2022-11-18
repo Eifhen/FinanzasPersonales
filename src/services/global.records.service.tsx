@@ -1,6 +1,7 @@
 import { yearsRecordData } from "../data/years.record.data";
 import IYearRecord, { IGlobalRecord } from '../interfaces/financial.records.interface';
 
+// retorna la data de todos los años registrados
 
 const records = yearsRecordData;
 

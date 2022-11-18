@@ -1,17 +1,15 @@
 import { monthRecordsData } from "../data/months.record.data";
-import IYearRecord, { IMonthRecord } from "../interfaces/financial.records.interface";
-import globalRecordsService from "./global.records.service";
+import expendingsRecords from "../data/records.data";
+import IYearRecord, { IMonthRecord, IRecord } from "../interfaces/financial.records.interface";
+import yearRecordService from "./year.record.service";
+
+const records = expendingsRecords;
+
+class MonthFinanceRecordService {
 
 
-// Retorna la data de los meses del año
-
-const records = monthRecordsData;
-
-class YearFinanceRecordService {
-
-
-    GetAll(id_year_record:number):Array<IMonthRecord>{
-        const find = records.filter(record => record.id_year_financial_record === id_year_record);
+    GetAll(id_month_record:number):Array<IRecord>{
+        const find = records.filter(record => record.id_month_record === id_month_record);
         return find;
     }
 
@@ -19,23 +17,20 @@ class YearFinanceRecordService {
         return records.find(item => item.id == id);
     }
 
-    Insert(data:IMonthRecord, id_year_record:number) : boolean {
+    Insert(data:IRecord, id_month_record:number) : boolean {
         data.id = Math.floor(Math.random() * 999);
-        data.id_year_financial_record = id_year_record;
+        data.id_month_record = id_month_record;
         records.push(data);
         console.log("record inserted =>", records);
         return true;
     }
 
-    Update(data:IMonthRecord) : boolean {
+    Update(data:IRecord) : boolean {
         const item = records.find( element => element.id === data.id);
         if(item){
             item.date = data.date;
             item.title = data.title;
-            item.month = data.month;
-            item.total_expendings = data.total_expendings;
-            item.total_incomes = data.total_incomes;
-            item.total_saved = data.total_saved;
+            item.cost = data.cost;
             console.log("item actualizado => ", item);
             return true;
         }
@@ -46,7 +41,7 @@ class YearFinanceRecordService {
     }
 
 
-    Delete(data:IMonthRecord) : boolean {
+    Delete(data:IRecord) : boolean {
         console.log("delete =>", data);
         const find = records.find(item => item.id === data.id);
         if(find){
@@ -64,25 +59,30 @@ class YearFinanceRecordService {
     }
 
 
-    yearReport(id_year_record:number) : IYearRecord {
-        
-        const report = globalRecordsService.Get(id_year_record);
+    monthReport(id_month_record:number) : IMonthRecord {
+        // Revisar todas las versiones de este método
+
+        const report = yearRecordService.Get(id_month_record);
+        const expenses = records.filter(expense => expense.id_month_record == id_month_record);
+        console.log("report =>", report);
+        console.log("expenses =>", expenses);
         if(report){
-            records.forEach(item => {
-                report.total_incomes = report.total_incomes + item.total_incomes;
-                report.total_expendings = report.total_expendings + item.total_expendings;
-                report.total_saved = report.total_saved + item.total_saved;
+            expenses.forEach(item => {
+                report.total_expendings = report.total_expendings + item.cost;
+                report.total_saved = report.total_incomes - item.cost;
             })
             return report;
         }
 
-        const record:IYearRecord = {
+        const record:IMonthRecord = {
             id: 0,
             title: "",
             date: "",
+            month: "",
+            total_saved: 0,
             total_incomes: 0,
             total_expendings: 0,
-            total_saved: 0
+            id_year_financial_record: 0
         }
 
         return record;
@@ -90,5 +90,5 @@ class YearFinanceRecordService {
     }
 }
 
-const yearRecordService = new YearFinanceRecordService();
-export default yearRecordService;
+const monthRecordService = new MonthFinanceRecordService();
+export default monthRecordService;

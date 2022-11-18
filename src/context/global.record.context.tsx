@@ -4,11 +4,13 @@ import { IModal } from '../interfaces/modal.interface';
 import globalRecordsService from '../services/global.records.service';
 import { YearRecordForm } from '../forms/year.record.form';
 import IYearRecord, { IGlobalRecord } from '../interfaces/financial.records.interface';
+import { indexObj } from '../interfaces/indexObj.interface';
+import interfaceOf from '../helpers/interface.helper';
 
 
 interface GlobalRecordProvider {
     modal:IModal;
-    openModal(type:string, data?:IYearRecord): void;
+    openModal(type:string, data?:IYearRecord | indexObj<any>): void;
     form:IYearRecord;
     HandleForm(event:any): void;
     getAllData(): Array<IYearRecord>;
@@ -45,11 +47,11 @@ function GlobalRecordProvider (props:any){
 
     // Gestión de Modals 
 
-    function openModal(type:string, data:IYearRecord){
+    function openModal(type:string, data:IYearRecord | indexObj<any>){
         setModalType(type);
         setModalOpen(true);
-        if(data){
-            setForm(data);
+        if(interfaceOf<IYearRecord>(data)){
+            setForm(data as IYearRecord);
         }
     }
 

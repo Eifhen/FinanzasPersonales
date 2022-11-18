@@ -37,3 +37,15 @@ export interface IMonthRecord{
 export interface IMonthRecordObj {
     data:IMonthRecord;
 }
+
+export interface IRecord {
+    id:number;
+    id_month_record:number;
+    title:string;
+    date:string;
+    cost:number;
+}
+
+export interface IRecordObj {
+    data:IRecord;
+}
