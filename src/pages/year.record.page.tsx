@@ -8,7 +8,8 @@ import Modal from "../components/modal.component";
 import FinanceCardList from "../components/finance.cardlist.component";
 import { IMonthRecord } from "../interfaces/financial.records.interface";
 import monthRecordheaders from "../headers/month.record.headers.data";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import GoBack from "../components/goback.component";
 
 
 export default function YearRecordPage () {
@@ -28,14 +29,20 @@ function YearRecordPageContent(){
     const records = context.monthlyRecords;
     const path = `/year-record/${params.id}/month`;
     const headers = monthRecordheaders;
+    const navigate = useNavigate();
+    
+    const GoToPreviousPage = () : void => {
+        navigate("/global-records");
+    }
 
     return(
-        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>
+        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between p-relative'>
             <header>
                 <Navbar />
             </header>
             
             <section className='container h-min-100vh align-self-center bg-pure mb-4'>
+                <GoBack redirect={ ()=> GoToPreviousPage() } />
                 <Header className="mb-3 " 
                     title="Year Record" 
                     icon="ri-calendar-todo-fill" 

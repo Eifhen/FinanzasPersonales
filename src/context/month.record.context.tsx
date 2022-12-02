@@ -16,6 +16,8 @@ interface MonthRecordProvider {
     HandleForm(event:any): void;
     allRecords: Array<IRecord>;
     monthReport: IMonthRecord;
+    id_year_record: number;
+    id_month_record: number;
 }
 
 const emptyForm:IRecord = {
@@ -266,7 +268,7 @@ function MonthRecordProvider (props:any){
     },[reload]);
 
     const data:MonthRecordProvider = { 
-        openModal, modal, form, HandleForm, allRecords, monthReport
+        openModal, modal, form, HandleForm, allRecords, monthReport, id_year_record, id_month_record
     };
 
     return(

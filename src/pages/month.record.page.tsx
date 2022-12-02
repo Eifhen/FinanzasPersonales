@@ -8,6 +8,8 @@ import itemRecordHeaders from "../headers/item.record.headers.data";
 import FinanceCardList from "../components/finance.cardlist.component";
 import { IRecord } from "../interfaces/financial.records.interface";
 import Modal from "../components/modal.component";
+import GoBack from '../components/goback.component';
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function MonthRecordPage(){
@@ -24,14 +26,20 @@ function MonthRecordPageContent(){
     const records = context.allRecords;
     const report = context.monthReport;
     const headers = itemRecordHeaders;
+    const navigate = useNavigate();
+
+    const GoToPreviousPage = () : void => {
+        navigate(`/year-record/${context.id_year_record}`);
+    }
 
     return (
-        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>
+        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between p-relative'>
             <header>
                 <Navbar />
             </header>
             
-            <section className='container h-min-100vh align-self-center bg-pure mb-4'>
+            <section className='container h-min-100vh align-self-center bg-pure mb-4 '>
+                <GoBack redirect={ ()=> GoToPreviousPage() } />
                 <Header className="mb-3 " 
                     title="Monthly Record" 
                     icon="ri-file-list-3-line" 

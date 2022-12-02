@@ -23,10 +23,12 @@ export default function Header(props:header){
 
     return (
         <header className={`page-header ${props.className}`}>
-            <h1 className="title"> 
-                <i className={`${props.icon}`}></i> {props.title}
-            </h1>
-            <p>{props.subtitle}</p>
+            <div className="page-title">
+                <h1 className="title"> 
+                    <i className={`${props.icon}`}></i> {props.title}
+                </h1>
+                <p>{props.subtitle}</p>
+            </div>
             {render}
         </header>
     );
