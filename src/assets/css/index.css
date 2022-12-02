@@ -123,3 +123,12 @@
 .goBack:focus, .goBack:hover {
     background-color: var(--gray-light);
 }
+
+
+@media(max-width:700px){
+    .goBack {
+        position:static;
+        width:85% !important;
+        margin: 0 auto;
+    }
+}
