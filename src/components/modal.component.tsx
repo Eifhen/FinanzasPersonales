@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react';
-import { FinanceRecordContext } from '../context/global.record.context';
 import { IModalObj } from '../interfaces/modal.interface';
 
 
@@ -11,9 +10,10 @@ export default function Modal(props:IModalObj){
         props.data.modalConfirm(event);
     }
 
+
     return(
-        <div className={`modal-overlay ${props.data.state} ${props.data.mode} ${props.data.refresh}`}>
-            <div className={`modal bg-pure ${props.data.size}`}>
+        <div className={`modal-overlay  ${props.data.state} ${props.data.mode} ${props.data.refresh}`}>
+            <div className={`modal modal-animation bg-pure ${props.data.size}`}>
                 <header className="mb-1">
                     <h1 className={`modal-title ${props.data.btnColor}`}>
                         {icon} {props.data.title}

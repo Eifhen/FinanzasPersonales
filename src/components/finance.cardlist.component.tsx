@@ -134,7 +134,7 @@ function RecordRow<T>(props:IRecordItem<T>){
         else {
             return (
                 <li key={`${id}-${header.property}`} className={`record-item ${header.rowWidth}`} title={record.toString()}>
-                    { record }
+                    <p className="p-0 m-0">{ record }</p> 
                 </li>
             )
         }

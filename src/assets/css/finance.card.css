@@ -127,8 +127,7 @@
     overflow: scroll;
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 25vh;
-    max-height: 60vh;
+    height:60vh;
     width:100%;
     padding:0.5rem;
 }

@@ -1,10 +1,7 @@
 import axios from "axios";
-import { monthRecordsData } from "../data/months.record.data";
-import expendingsRecords from "../data/records.data";
-import IYearRecord, { IMonthRecord, IRecord } from "../interfaces/financial.records.interface";
-import yearRecordService from "./year.record.service";
 
-const records = expendingsRecords;
+import { IRecord } from "../interfaces/financial.records.interface";
+
 const API_KEY = import.meta.env.VITE_APP_API_KEY
 const PATH = import.meta.env.VITE_APP_BASE_URL;
 
