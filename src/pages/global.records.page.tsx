@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import Button from '../components/button.component';
 import FinanceCardList from '../components/finance.cardlist.component';
 import Footer from '../components/footer.component';
@@ -21,10 +21,11 @@ export default function GlobalRecordsPage (){
 function GlobalRecordPageContent(){
 
     const context = useContext(GlobalRecordContext);
-    const report = context.globalReport();
-    const records = context.getAllData();
+    const report = context.globalReport;
+    const records = context.yearRecords;
     const path = "/year-record";
     const headers = yearRecordheaders;
+
 
     return(
         <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>

@@ -12,7 +12,7 @@ export function MonthRecordForm(props:any){
         <div>
             <fieldset>
                 <label className="text-gray" htmlFor="title">Title</label>
-                <input  id="title" type="text" maxLength={20} className="text-capitalize" placeholder="Enter a Title"  onChange={context.HandleForm} value={context.form.title}  />
+                <input  id="title" type="text" maxLength={30} className="text-capitalize" placeholder="Enter a Title"  onChange={context.HandleForm} value={context.form.title}  />
             </fieldset>
             <fieldset>
                 <label className="text-gray" htmlFor="date">Creation Date</label>

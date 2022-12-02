@@ -24,8 +24,8 @@ function YearRecordPageContent(){
 
     const params = useParams();
     const context = useContext(YearRecordContext);
-    const report = context.yearReport();
-    const records = context.getAllData();
+    const report = context.yearReport;
+    const records = context.monthlyRecords;
     const path = `/year-record/${params.id}/month`;
     const headers = monthRecordheaders;
 

@@ -21,8 +21,8 @@ export default function MonthRecordPage(){
 function MonthRecordPageContent(){
 
     const context = useContext(MonthRecordContext);
-    const records = context.getAllData();
-    const report = context.monthReport();
+    const records = context.allRecords;
+    const report = context.monthReport;
     const headers = itemRecordHeaders;
 
     return (

@@ -31,7 +31,7 @@ export interface IMonthRecord{
     total_saved:number;
     total_incomes:number;
     total_expendings:number;
-    id_year_financial_record:number;
+    id_year_record:number;
 }
 
 export interface IMonthRecordObj {

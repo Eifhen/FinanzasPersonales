@@ -11,7 +11,7 @@ export function YearRecordForm(props:any){
         <div>
             <fieldset>
                 <label className="text-gray" htmlFor="title">Title</label>
-                <input  maxLength={15} className="text-capitalize" placeholder="Enter a Title" id="title" type="text" onChange={context.HandleForm} value={context.form.title}  />
+                <input  maxLength={30} className="text-capitalize" placeholder="Enter a Title" id="title" type="text" onChange={context.HandleForm} value={context.form.title}  />
             </fieldset>
             <fieldset>
                 <label className="text-gray" htmlFor="date">Creation Date</label>

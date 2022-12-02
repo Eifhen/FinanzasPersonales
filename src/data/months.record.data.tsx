@@ -10,7 +10,7 @@ export const monthRecordsData:Array<IMonthRecord> = [
         total_incomes:28000, 
         total_expendings:14000, 
         total_saved:14000,
-        id_year_financial_record:123,
+        id_year_record:123,
     },
     { 
         id:321, 
@@ -20,7 +20,7 @@ export const monthRecordsData:Array<IMonthRecord> = [
         total_incomes:28000, 
         total_expendings:18000, 
         total_saved:10000,
-        id_year_financial_record:123,
+        id_year_record:123,
     },
     { 
         id:444, 
@@ -30,7 +30,7 @@ export const monthRecordsData:Array<IMonthRecord> = [
         total_incomes:28000, 
         total_expendings:10000, 
         total_saved:180000,
-        id_year_financial_record:123,
+        id_year_record:123,
     },
 ] ;
 

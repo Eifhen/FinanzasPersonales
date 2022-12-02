@@ -1,91 +1,101 @@
+import axios from "axios";
 import { monthRecordsData } from "../data/months.record.data";
 import expendingsRecords from "../data/records.data";
 import IYearRecord, { IMonthRecord, IRecord } from "../interfaces/financial.records.interface";
 import yearRecordService from "./year.record.service";
 
 const records = expendingsRecords;
+const API_KEY = import.meta.env.VITE_APP_API_KEY
+const PATH = import.meta.env.VITE_APP_BASE_URL;
 
 class MonthFinanceRecordService {
 
 
-    GetAll(id_month_record:number):Array<IRecord>{
-        const find = records.filter(record => record.id_month_record === id_month_record);
-        return find;
+    GetAll(id_month_record:number): Promise<any>{
+        const url = `${PATH}/item-records/getAll.php?id=${id_month_record}`;
+        const options = { headers:{ 'Authorization':API_KEY }}
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
     }
 
-    Get(id:number){
-        return records.find(item => item.id == id);
+    Get(id_record:number){
+        const url = `${PATH}/item-records/get.php?id=${id_record}`;
+        const options = { headers:{ 'Authorization':API_KEY }}
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
     }
 
-    Insert(data:IRecord, id_month_record:number) : boolean {
-        data.id = Math.floor(Math.random() * 999);
-        data.id_month_record = id_month_record;
-        records.push(data);
-        console.log("record inserted =>", records);
-        return true;
+    Insert(data:IRecord) : Promise<any> {
+        const url = `${PATH}/item-records/post.php`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     }
 
-    Update(data:IRecord) : boolean {
-        const item = records.find( element => element.id === data.id);
-        if(item){
-            item.date = data.date;
-            item.title = data.title;
-            item.cost = data.cost;
-            console.log("item actualizado => ", item);
-            return true;
-        }
+    Update(data:IRecord) : Promise<any> {
+        const url = `${PATH}/item-records/put.php`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.put(url, data, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
 
-        console.log("error al actualizar", item);
-        return false;
-
-    }
-
-
-    Delete(data:IRecord) : boolean {
-        console.log("delete =>", data);
-        const find = records.find(item => item.id === data.id);
-        if(find){
-           for(var index =0; index < records.length; index++){
-                if(records[index].id === data.id){
-                    records.splice(index, 1);
-                    console.log("Deleted");
-                    break;
-                }
-           }
-           return true;
-        }
-        console.log("ha ocurrido un error al eliminar el objeto", data);
-        return false;
     }
 
 
-    monthReport(id_month_record:number) : IMonthRecord {
-        // Revisar todas las versiones de este método
+    Delete(data:IRecord) : Promise<any> {
+        const url = `${PATH}/item-records/delete.php?id=${data.id}`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.delete(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    }
 
-        const report = yearRecordService.Get(id_month_record);
-        const expenses = records.filter(expense => expense.id_month_record == id_month_record);
-        console.log("report =>", report);
-        console.log("expenses =>", expenses);
-        if(report){
-            expenses.forEach(item => {
-                report.total_expendings = report.total_expendings + item.cost;
-                report.total_saved = report.total_incomes - item.cost;
-            })
-            return report;
-        }
 
-        const record:IMonthRecord = {
-            id: 0,
-            title: "",
-            date: "",
-            month: "",
-            total_saved: 0,
-            total_incomes: 0,
-            total_expendings: 0,
-            id_year_financial_record: 0
-        }
-
-        return record;
+    MonthReport(id_month_record:number) : Promise<any> {
+        const url = `${PATH}/month-records/get.php?id=${id_month_record}`;
+        const options = { headers:{ 'Authorization':API_KEY }}
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
 
     }
 }

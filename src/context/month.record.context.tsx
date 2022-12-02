@@ -14,8 +14,8 @@ interface MonthRecordProvider {
     openModal(type:string, data?:indexObj<IRecord>): void;
     form:IRecord;
     HandleForm(event:any): void;
-    getAllData(): Array<IRecord>;
-    monthReport(): IMonthRecord;
+    allRecords: Array<IRecord>;
+    monthReport: IMonthRecord;
 }
 
 const emptyForm:IRecord = {
@@ -33,6 +33,9 @@ function MonthRecordProvider (props:any){
     const [modalType, setModalType] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [form, setForm] = useState(emptyForm);
+    const [monthReport, setMonthReport] = useState({} as IMonthRecord);
+    const [allRecords, setAllRecords] = useState([] as Array<IRecord>);
+    const [reload, setReload] = useState<boolean>(false);
     const params = useParams();
     const id_month_record = Number(params.id_month_record);
     const id_year_record = Number(params.id_year_record);
@@ -40,12 +43,28 @@ function MonthRecordProvider (props:any){
 
     // Gestión de datos
 
-    function getAllData() : Array<IRecord> {
-        return service.GetAll(id_month_record);
+    function GetAllRecords() : void {
+        service.GetAll(id_month_record).then((res:Array<IRecord>)=>{
+            if(res != undefined){
+                setAllRecords(res);
+            }
+            else{
+                setAllRecords([]);
+            }
+        })
+        .catch(console.error);
     }
 
-    function monthReport() : IMonthRecord {
-        return service.monthReport(id_month_record);
+    function GetMonthReport() : void {
+        service.MonthReport(id_month_record).then((record:IMonthRecord) =>{
+            if(record != undefined){
+                setMonthReport(record);
+            }
+            else{
+                setMonthReport({} as IMonthRecord);
+            }
+        })
+        .catch(console.error);
     }
 
     // Gestión de Modals 
@@ -146,22 +165,25 @@ function MonthRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Insert(form, id_month_record)){
+            form.id_month_record = id_month_record;
+            service.Insert(form).then((res) => {
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been added successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error adding the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            })
 
         }
         else{
@@ -175,22 +197,24 @@ function MonthRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Update(form)){
+            service.Update(form).then((res) => {
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been updated successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error updating the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            });
         }
         else{
             setModal((modal:IModal) => {
@@ -203,22 +227,24 @@ function MonthRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Delete(form)){
+            service.Delete(form).then((res) => {
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been deleted successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error deleting the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            });
         }
         else {
             setModal((modal:IModal) => {
@@ -233,10 +259,14 @@ function MonthRecordProvider (props:any){
             setModal(ModalHandler);
         }
     }, [form, modalOpen]);
-
+    
+    useEffect(()=>{
+        GetMonthReport();
+        GetAllRecords();
+    },[reload]);
 
     const data:MonthRecordProvider = { 
-        openModal, modal, form, HandleForm, getAllData, monthReport
+        openModal, modal, form, HandleForm, allRecords, monthReport
     };
 
     return(

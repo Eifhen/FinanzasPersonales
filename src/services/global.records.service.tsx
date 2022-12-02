@@ -1,80 +1,101 @@
-import { yearsRecordData } from "../data/years.record.data";
-import IYearRecord, { IGlobalRecord } from '../interfaces/financial.records.interface';
+
+import IYearRecord from '../interfaces/financial.records.interface';
+import axios from 'axios';
 
 // retorna la data de todos los años registrados
 
-const records = yearsRecordData;
+const API_KEY = import.meta.env.VITE_APP_API_KEY
+const PATH = import.meta.env.VITE_APP_BASE_URL;
 
 class GlobalRecordsService {
 
-    GetAll():Array<IYearRecord>{
-        return records;
+    GetAll():Promise<any>{
+        const url = `${PATH}/year-records/getAll.php`;
+        const options = { headers:{ 'Authorization':API_KEY }}
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
     }
 
-    Get(id:number) : IYearRecord | undefined {
-
-        const find = records.find(item => item.id == id);
-        return find;
+    Get(id:number) : Promise<any> {
+        const url = `${PATH}/year-records/get.php?id=${id}`;
+        const options = { headers:{ 'Authorization':API_KEY }}
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
     }
 
-    Insert(data:IYearRecord) : boolean {
-        data.id = Math.floor(Math.random() * 999);
-        records.push(data);
-        console.log("record inserted =>", records);
-        return true;
+    Insert(data:IYearRecord) : Promise<any> {
+        const url = `${PATH}/year-records/post.php`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.post(url, data, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     }
 
-    Update(data:IYearRecord) : boolean {
-        const item = records.find( element => element.id === data.id);
-        if(item){
-            item.date = data.date;
-            item.title = data.title;
-            item.total_expendings = data.total_expendings;
-            item.total_incomes = data.total_incomes;
-            item.total_saved = data.total_saved;
-            console.log("item actualizado => ", item);
-            return true;
-        }
+    Update(data:IYearRecord) : Promise<any> {
+        const url = `${PATH}/year-records/put.php`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.put(url, data, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
 
-        console.log("error al actualizar", item);
-        return false;
-
-    }
-
-
-    Delete(data:IYearRecord) : boolean {
-        console.log("delete =>", data);
-        const find = records.find(item => item.id === data.id);
-        if(find){
-           for(var index =0; index < records.length; index++){
-                if(records[index].id === data.id){
-                    records.splice(index, 1);
-                    console.log("Deleted");
-                    break;
-                }
-           }
-           return true;
-        }
-        console.log("ha ocurrido un error al eliminar el objeto", data);
-        return false;
     }
 
 
-    GlobalReport() : IGlobalRecord {
+    Delete(data:IYearRecord) : Promise<any> {
+        const url = `${PATH}/year-records/delete.php?id=${data.id}`;
+        const options = { headers:{ 'Authorization':API_KEY }};
+        return new Promise((resolve, reject) => {
+            axios.delete(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
+    }
+
+
+    GlobalReport() : Promise<any> {
         
-        const report:IGlobalRecord = {
-            total_incomes: 0,
-            total_expendings: 0,
-            total_saved: 0
-        } 
+        const url = `${PATH}/global-records/get.php`;
+        const options = { headers:{ 'Authorization':API_KEY }}
 
-        records.forEach(item => {
-            report.total_incomes = report.total_incomes + item.total_incomes;
-            report.total_expendings = report.total_expendings + item.total_expendings;
-            report.total_saved = report.total_saved + item.total_saved;
-        })
-
-        return report;
+        return new Promise((resolve, reject) => {
+            axios.get(url, options)
+                .then(res => {
+                    resolve(res.data.response);
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
     }
 
 }

@@ -16,8 +16,8 @@ interface YearRecordProvider {
     openModal(type:string, data?:indexObj<IMonthRecord>): void;
     form:IMonthRecord;
     HandleForm(event:any): void;
-    getAllData(): Array<IMonthRecord>;
-    yearReport(): IYearRecord;
+    monthlyRecords: Array<IMonthRecord>;
+    yearReport: IYearRecord;
 }
 
 const emptyForm:IMonthRecord = {
@@ -28,7 +28,7 @@ const emptyForm:IMonthRecord = {
     total_saved: 0,
     total_incomes: 0,
     total_expendings: 0,
-    id_year_financial_record: 0
+    id_year_record: 0
 }
 
 const YearRecordContext = createContext({} as YearRecordProvider);
@@ -38,18 +38,37 @@ function YearRecordProvider (props:any){
     const [modalType, setModalType] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
     const [form, setForm] = useState(emptyForm);
+    const [reload, setReload] = useState<boolean>(false);
+    const [yearReport, setYearReport] = useState({} as IYearRecord);
+    const [monthlyRecords, setMonthlyRecords] = useState([] as Array<IMonthRecord>);
     const params = useParams();
     const id_year_record = Number(params.id);
     const service = yearRecordService;
 
     // Gestión de datos
 
-    function getAllData() : Array<IMonthRecord> {
-        return service.GetAll(id_year_record);
+    function GetMonthlyRecords() : void {
+        service.GetAll(id_year_record).then((res:Array<IMonthRecord>)=>{
+            if(res != undefined){
+                setMonthlyRecords(res);
+            }
+            else{
+                setMonthlyRecords([]);
+            }
+        })
+        .catch(console.error);
     }
 
-    function yearReport() : IYearRecord {
-        return service.yearReport(id_year_record);
+    function GetYearReport() : void {
+        service.yearReport(id_year_record).then((res:IYearRecord)=>{
+            if(res != undefined){
+                setYearReport(res);
+            }
+            else{
+                setYearReport({} as IYearRecord);
+            }
+        })  
+        .catch(console.error);
     }
 
     // Gestión de Modals 
@@ -150,22 +169,25 @@ function YearRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Insert(form, id_year_record)){
+            form.id_year_record = id_year_record;
+            service.Insert(form).then((res) => {
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been added successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error adding the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            })
 
         }
         else{
@@ -179,22 +201,24 @@ function YearRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Update(form)){
+            service.Update(form).then((res) => {
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been updated successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error updating the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            });
         }
         else{
             setModal((modal:IModal) => {
@@ -207,22 +231,25 @@ function YearRecordProvider (props:any){
         event.preventDefault();
 
         if(form.title && form.date){
-            if(service.Delete(form)){
+            service.Delete(form).then((res) => {
+               
+                setReload(!reload);
                 setModal((modal:IModal) => {
                     const msg = "The record has been deleted successfully";
                     const msgColor = "text-green"
                     const btnState = true;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
-            else{
+            })
+            .catch((err)=>{
                 setModal((modal:IModal) => {
                     const msg = "there was an error deleting the record";
                     const msgColor = "text-wine"
                     const btnState = false;
                     return {...modal, msg, msgColor, btnState};
                 })
-            }
+                console.log("err => ", err);
+            });
         }
         else {
             setModal((modal:IModal) => {
@@ -238,9 +265,13 @@ function YearRecordProvider (props:any){
         }
     }, [form, modalOpen]);
 
+    useEffect(()=>{
+        GetYearReport();
+        GetMonthlyRecords();
+    }, [reload])
 
     const data:YearRecordProvider = { 
-        openModal, modal, form, HandleForm, getAllData, yearReport
+        openModal, modal, form, HandleForm, monthlyRecords, yearReport
     };
 
     return(

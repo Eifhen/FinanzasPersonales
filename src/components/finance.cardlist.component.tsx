@@ -49,7 +49,7 @@ interface IRecordItem<T> {
 export default function FinanceCardList<T extends indexObj<T>>(props:IFinanceCardList<T>) {
 
     const {records, globalReport} = props;
-
+    
     return (         
         <div className="card-content bg-white">
             <SummaryCard data={globalReport} />

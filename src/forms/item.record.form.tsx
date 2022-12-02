@@ -13,7 +13,7 @@ export function ItemRecordForm(props:any){
             <fieldset>
                 <label className="text-gray" htmlFor="title">Title</label>
                 <input  id="title" type="text" 
-                    maxLength={11} 
+                    maxLength={30} 
                     className="text-capitalize" 
                     placeholder="Enter a Title"  
                     onChange={context.HandleForm} 
