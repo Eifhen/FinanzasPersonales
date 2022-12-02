@@ -18,7 +18,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
     }
@@ -32,7 +32,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
     }
@@ -46,7 +46,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
     }
@@ -60,7 +60,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
 
@@ -76,7 +76,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
     }
@@ -93,7 +93,7 @@ class YearFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
 

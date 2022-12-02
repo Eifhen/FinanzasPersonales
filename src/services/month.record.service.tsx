@@ -20,7 +20,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
     }
@@ -34,7 +34,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
     }
@@ -48,7 +48,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
     }
@@ -62,7 +62,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
 
@@ -78,7 +78,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 });
         });
     }
@@ -93,7 +93,7 @@ class MonthFinanceRecordService {
                     resolve(res.data.response);
                 })
                 .catch(err => {
-                    reject(err);
+                    reject(err.response.data);
                 })
         });
 
