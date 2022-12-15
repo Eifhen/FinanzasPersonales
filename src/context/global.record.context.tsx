@@ -85,13 +85,13 @@ function GlobalRecordProvider (props:any){
 
         const add:IModal = {
             mode:modalType,
-            icon:"ri-add-line",
+            icon:"ri-add-line p-0-5",
             state:"modal-show",
             btnColor:"bg-green",
             btnTitle:"Add Record",
             btnState:false,
             size:"modal-md",
-            title:"Add New Financial Record",
+            title:"Add New Year Record",
             render: financialRecordsForm,
             modalClose:()=> closeModal(),
             modalConfirm:(event)=> Add(event),
@@ -99,13 +99,13 @@ function GlobalRecordProvider (props:any){
 
         const edit:IModal = {
             state:"modal-show",
-            icon:"ri-pencil-fill pr-1",
+            icon:"ri-pencil-fill pr-0-5",
             mode:modalType,
             btnColor:"bg-green",
             btnTitle:"Update Record",
             btnState:false,
             size:"modal-md",
-            title:"Edit Financial Record",
+            title:"Edit Year Record",
             render: financialRecordsForm,
             modalClose:()=> closeModal(),
             modalConfirm:(event)=> Edit(event),
@@ -113,13 +113,13 @@ function GlobalRecordProvider (props:any){
 
         const deleteData:IModal = {
             state:"modal-show",
-            icon:"ri-delete-bin-fill pr-1",
+            icon:"ri-delete-bin-fill pr-0-5",
             mode:modalType,
             btnColor:"bg-wine",
             btnTitle:"Delete",
             btnState:false,
             size:"modal-md",
-            title:"Delete Financial Record",
+            title:"Delete Year Record",
             render:(<p className='p-1'>Are you sure you want to delete this record?</p>),
             modalClose:()=> closeModal(),
             modalConfirm:(event)=> Delete(event),

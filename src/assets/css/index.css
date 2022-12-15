@@ -5,130 +5,24 @@
 @import url("navbar.component.css");
 @import url("modal.css");
 @import url("finance.card.css");
-
-.fade-in{  animation:fadeIn 2.5s; }
-
-@keyframes fadeIn{ 0%{opacity:0} to{opacity:1} }
-
+@import url("activebar.component.css");
+@import url("header.css");
 
 
 .f-roboto {font-family: 'Roboto', sans-serif;}
 
+.icon-edit { margin-right:0.5rem; color:var(--gray); }
+
+.icon-delete { color:var(--gray); }
+
+.icon-edit:hover {  color:var(--green); }
+
+.icon-delete:hover{ color:var(--wine); }
+
 .container { width:85%; }
 
-@media( max-width: 700px){
-   .container {width:100%;}
-}
+.fade-in{  animation:fadeIn 2.5s; }
 
-.page-header {
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 2rem;
-}
+@media( max-width: 700px){ .container {width:100%;} }
 
-
-.page-header h1 {
-    padding:0;
-    margin:0 0 0.5rem 0;
-    font-weight: 100;
-    font-size: 2.5rem;
-    color: var(--blue-royal);
-    display:flex;
-    align-items:center;
-    justify-content: center;
-}
-
-.page-header h1 i { margin-right:0.5rem;}
-
-.page-header p {
-    margin:0;
-    padding:0;
-    color: var(--blue-royal);
-}
-
-
-.page-header-detail{
-    margin:1rem 0;
-    padding:1rem;
-    text-align: center;
-    font-size: 1.4rem;
-    border-radius: 50px;
-}
-
-.icon-delete {
-    color:var(--gray);
-}
-
-.icon-edit {
-    margin-right:0.5rem;
-    color:var(--gray);
-}
-
-.icon-edit:hover {
-    color:var(--green);
-}
-
-.icon-delete:hover{
-    color:var(--wine);
-}
-
-@media(max-width:700px){
-
-    .page-header {
-        padding:0 2rem;
-    }
-
-    .page-header h1 {
-        line-height: 2rem;
-        font-weight: 100;
-    }
-
-    .page-header h1 i {
-        font-weight: 300 !important;
-        font-size: 4rem;
-        margin-right: 0;
-    }
-
-    .page-header p {
-        margin-top: 0.4rem;
-        margin-left:0.4rem ;
-    }
-}
-
-
-.goBack {
-    position: absolute;
-    top: 130px;
-    left: 60px;
-    padding:0.5rem;
-    border-radius: 25px;
-    box-shadow: var(--shadow-sm);
-    background-color: white;
-    font-size: 2rem !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--blue-royal);
-}
-
-.goBack p {
-    padding: 0 1rem;
-    margin: 0;
-    font-size: 1rem;
-}
-
-.goBack:focus, .goBack:hover {
-    background-color: var(--gray-light);
-}
-
-
-@media(max-width:700px){
-    .goBack {
-        position:static;
-        width:85% !important;
-        margin: 0 auto;
-    }
-}
+@keyframes fadeIn{ 0%{opacity:0} to{opacity:1} }

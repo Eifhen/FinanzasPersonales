@@ -44,8 +44,22 @@ export interface IRecord {
     title:string;
     date:string;
     cost:number;
+    descripcion:string;
 }
 
 export interface IRecordObj {
     data:IRecord;
+}
+
+export interface IMonthIncome {
+    id:number;
+    id_month_record:number;
+    title:string;
+    date:string;
+    income:number;
+    descripcion:string;
+}
+
+export interface IMonthIncomeObj {
+    data:IMonthIncome;
 }

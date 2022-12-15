@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import Button from '../components/button.component';
 import FinanceCardList from '../components/finance.cardlist.component';
 import Footer from '../components/footer.component';
@@ -8,6 +8,7 @@ import Navbar from '../components/navbar.component';
 import { GlobalRecordContext, GlobalRecordProvider } from '../context/global.record.context';
 import IYearRecord from '../interfaces/financial.records.interface';
 import yearRecordheaders from '../headers/year.record.headers.data';
+import { ActionBar, IActiveBarItem } from '../components/activebar.component';
 
 
 export default function GlobalRecordsPage (){
@@ -26,20 +27,25 @@ function GlobalRecordPageContent(){
     const path = "/year-record";
     const headers = yearRecordheaders;
 
+    const ActionItems = useMemo(() : Array<IActiveBarItem> => [
+        {
+            title: "Add Record",
+            icon: "ri-add-line text-green",
+            action:()=> context.openModal("add")
+        },
+    ], []);
 
     return(
-        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between'>
-            <header>
-                <Navbar />
-            </header>
+        <main className='f-roboto fade-in bg-white-light h-min-100vh align-column-between'>
+            <Navbar background='bg-white-light' />
             
-            <section className='container h-min-100vh align-self-center bg-pure mb-4'>
-                <Header className="mb-3" 
+            <section className='container h-min-100vh align-self-center bg-inherit mb-4 pt-0'>
+                <Header className="" 
                     title="Global Financial Record" 
                     icon="ri-earth-fill " 
                     subtitle="In this view you will be able to see all your financial records by year." 
-                />
-                <Button className="btn-add mb-1" title="Add Record" icon="ri-add-line" action={()=> context.openModal("add")} />                
+                />              
+                
                 <FinanceCardList<IYearRecord>
                     path={path} 
                     headers= { headers }
@@ -47,6 +53,8 @@ function GlobalRecordPageContent(){
                     globalReport={ report } 
                     action={context.openModal} 
                 />
+            
+                <ActionBar items={ActionItems} />
             </section>
 
             <Modal data={context.modal}/>

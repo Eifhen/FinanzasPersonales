@@ -2,14 +2,16 @@ import { Link } from "react-router-dom";
 import BrandLogo from "./brand.component";
 
 
+interface INavbar {
+    background?:string
+}
 
-
-export default function Navbar(){
+export default function Navbar(props:INavbar){
 
 
 
     return(
-        <nav className="navbar">
+        <nav className={`navbar ${props.background}`}>
             <div className="navbar-content">
                 <div className="nav-brand">
                     <BrandLogo type="small" path="/home" />

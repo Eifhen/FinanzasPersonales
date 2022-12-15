@@ -3,13 +3,14 @@ import Footer from "../components/footer.component";
 import Header from "../components/header.component";
 import Navbar from "../components/navbar.component";
 import { YearRecordContext, YearRecordProvider } from "../context/year.record.context";
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import Modal from "../components/modal.component";
 import FinanceCardList from "../components/finance.cardlist.component";
 import { IMonthRecord } from "../interfaces/financial.records.interface";
 import monthRecordheaders from "../headers/month.record.headers.data";
 import { useNavigate, useParams } from "react-router-dom";
 import GoBack from "../components/goback.component";
+import { ActionBar, IActiveBarItem } from "../components/activebar.component";
 
 
 export default function YearRecordPage () {
@@ -35,21 +36,30 @@ function YearRecordPageContent(){
         navigate("/global-records");
     }
 
+    const ActionItems = useMemo(() : Array<IActiveBarItem> => [
+        {
+            title: "Add Record",
+            icon: "ri-add-line text-green",
+            action:()=> context.openModal("add")
+        },
+        {
+            title: "Go Back",
+            icon: "ri-arrow-left-circle-line fs-1-4 text-blue-royal",
+            action:()=> GoToPreviousPage()
+        },
+    ], []);
+
     return(
-        <main className='f-roboto fade-in bg-pure h-min-100vh align-column-between p-relative'>
-            <header>
-                <Navbar />
-            </header>
-            
-            <section className='container h-min-100vh align-self-center bg-pure mb-4'>
-                <GoBack redirect={ ()=> GoToPreviousPage() } />
-                <Header className="mb-3 " 
+        <main className='f-roboto fade-in bg-white-light h-min-100vh align-column-between p-relative'>
+            <Navbar background="bg-white-light"/>
+    
+            <section className='container h-min-100vh align-self-center bg-inherit pt-0 mb-4'>
+                <Header className="mb-1" 
                     title="Year Record" 
                     icon="ri-calendar-todo-fill" 
-                    subtitle="All your financial records by every month of the year."
+                    subtitle="All your records by every month of the year."
                     elementTitle={report.title}
                 />
-                <Button className="btn-add mb-1" title="Add Records" icon="ri-add-line" action={()=> {context.openModal("add")}} />
                 <FinanceCardList<IMonthRecord>
                     path={path} 
                     headers= { headers }
@@ -58,6 +68,7 @@ function YearRecordPageContent(){
                     action={context.openModal} 
                 />
 
+                <ActionBar items={ActionItems} />
             </section>
 
             <Modal data={context.modal}/>

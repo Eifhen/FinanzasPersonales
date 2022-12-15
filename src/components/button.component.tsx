@@ -21,7 +21,7 @@ export default function Button (props:button){
     }
 
     return (
-        <button onClick={ Action } className={`${props.className}`} disabled={props.disabled}>
+        <button title={props.title} onClick={ Action } className={`${props.className}`} disabled={props.disabled}>
              {icon} {props.title}
         </button>
     );

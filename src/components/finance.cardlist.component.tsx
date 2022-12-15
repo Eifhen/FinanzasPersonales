@@ -5,6 +5,8 @@ import SummaryCard from './summary.card.component';
 import { nanoid } from 'nanoid';
 import { indexObj } from '../interfaces/indexObj.interface';
 import IHasDate from '../interfaces/date.interface';
+import IncomeCard from './income.card.component';
+import incomeHeaders from '../headers/income.headers.data';
 
 
 
@@ -14,6 +16,7 @@ export interface IFinanceCardList<T> {
     records:Array<T>;
     action(type:string, data:indexObj<T>): void;
     path?:string; // path of navegation
+    enableIncomeCard?:boolean;
 }
 
 export interface IRecordHeader {
@@ -49,12 +52,35 @@ interface IRecordItem<T> {
 export default function FinanceCardList<T extends indexObj<T>>(props:IFinanceCardList<T>) {
 
     const {records, globalReport} = props;
-    
+    const enableIncomeCard = props.enableIncomeCard ? props.enableIncomeCard : false;
+    const IncomeHeaders:IRecordHeaderObj = incomeHeaders;
+    const indicator = enableIncomeCard ? "Expendings" : "Records";
+
     return (         
-        <div className="card-content bg-white">
+        <div className="card-content bg-inherit shadow-none">
             <SummaryCard data={globalReport} />
-            <div className="finance-card p-1 bg-pure mt-1">
-                 <RecordHeader key={props.headers.key} data={props.headers.data}/>
+
+            <IncomeCard enable={enableIncomeCard}>
+                <>
+                    <RecordHeader key={IncomeHeaders.key} data={IncomeHeaders.data}/>
+                    <div className="income-container">
+                        <RecordRowList<T> 
+                            headers={props.headers}
+                            records={records} 
+                            action={props.action} 
+                            path={props.path}
+                        />
+                    </div>
+                </>
+            </IncomeCard>
+            
+            <div className="finance-card p-1 bg-pure mt-1 p-relative">
+                <div className='mb-3'>
+                    <div className='card-indicator'>
+                        <h3>{indicator}</h3> 
+                    </div> 
+                </div>
+                <RecordHeader key={props.headers.key} data={props.headers.data}/>
                 <div className='record-container '>
                     <RecordRowList<T> 
                         headers={props.headers}
@@ -92,10 +118,10 @@ function RecordRowList<T extends indexObj<T>>(props:IRecordList<T>){
     return (   
         <>
             {
-                props.records.map((record:T) => {
+                props.records.map((record:T, index) => {
                     return (
                         <RecordRow<T>
-                            key={nanoid()} 
+                            key={index} 
                             headers={props.headers}
                             action={props.action} 
                             path={props.path} 

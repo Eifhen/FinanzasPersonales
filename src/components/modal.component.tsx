@@ -5,17 +5,18 @@ import { IModalObj } from '../interfaces/modal.interface';
 export default function Modal(props:IModalObj){
 
     const icon = props.data.icon ? <i className={`${props.data.icon}`}></i> : <></>;
-    
+    const type = props.data.mode == "delete" ? `${props.data.btnColor} text-white rounded-pill pl-2 pr-2` : "";
+
     function HandleSubmit(event:any){
         props.data.modalConfirm(event);
     }
 
 
     return(
-        <div className={`modal-overlay  ${props.data.state} ${props.data.mode} ${props.data.refresh}`}>
+        <div className={`modal-overlay  ${props.data.state} ${props.data.mode}`}>
             <div className={`modal modal-animation bg-pure ${props.data.size}`}>
                 <header className="mb-1">
-                    <h1 className={`modal-title ${props.data.btnColor}`}>
+                    <h1 className={`modal-title ${type}`}>
                         {icon} {props.data.title}
                     </h1>
                 </header>

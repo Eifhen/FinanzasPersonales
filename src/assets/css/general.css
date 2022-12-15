@@ -4,6 +4,7 @@
     --darker:rgb(2, 9, 12);
     --white: whitesmoke;
     --pure: white;
+    --white-light:rgb(253, 253, 253);
     --gray:#78909C;
     --gray-light:rgb(236, 239, 240);
     --gray-dark:gray;
@@ -60,23 +61,34 @@ footer {
 footer p { padding:0; margin:0; }
 
 
-fieldset { border:none; padding:1rem;}
+fieldset { border:none; padding:0.5;}
 
 input { 
     border:none; 
     border-radius: 50px; 
     display:block;
     padding:0.5rem 1rem;
-    margin: 0.5rem 0;
+    margin:0;
+    margin-top: 0.5rem;
     background: var(--gray-light);
     width:100%;
     font-size:1rem;
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: solid 1px orange;
     color: orange;
     background:white;
+}
+
+textarea {
+    border:none;
+    border-radius: 20px;
+    display: block;
+    margin:0.5rem 0;
+    padding:0.5rem 1rem;
+    width:100%;
+    background: var(--gray-light);
 }
 
 label {
@@ -102,7 +114,7 @@ label {
   
   /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-background: #555;
+    background: #555;
 }
 
 
@@ -131,6 +143,7 @@ background: #555;
 .pb-4 { padding-bottom:4rem !important;}
 
 .pr-0 { padding-right:0 !important; }
+.pr-0-5 { padding-right:0.5rem !important;}
 .pr-1 { padding-right:1rem !important;}
 .pr-2 { padding-right:2rem !important;}
 .pr-3 { padding-right:3rem !important;}
@@ -165,6 +178,7 @@ background: #555;
 .mb-auto { margin-bottom:auto !important;}
 
 .mr-0 { margin-right:0 !important; }
+.mr-0-5 { margin-right:0.5rem !important;}
 .mr-1 { margin-right:1rem !important; }
 .mr-2 { margin-right:2rem !important; }
 .mr-3 { margin-right:3rem !important; }
@@ -204,9 +218,9 @@ background: #555;
 .align-self-end { align-self: flex-end !important;}
 
 .align-center {
-    display:flex;
-    align-items: center;
-    justify-content: center;
+    display:flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .align-column-center{
@@ -235,16 +249,16 @@ background: #555;
 
 /* -------- [ Text ] ------- */
 
-.text-white { color:white; }
-.text-dark { color: var(--dark); }
-.text-wine { color:var(--wine); }
-.text-blue { color: var(--blue); }
-.text-gray { color: var(--gray);}
-.text-muted { color: var(--gray-dark);}
-.text-yellow { color: var(--yellow); }
-.text-orange { color: orange; }
-.text-blue-royal { color: var(--blue-royal)}
-.text-green {color: var(--green);}
+.text-white { color:white !important; }
+.text-dark { color: var(--dark) !important; }
+.text-wine { color:var(--wine) !important; }
+.text-blue { color: var(--blue) !important; }
+.text-gray { color: var(--gray) !important;}
+.text-muted { color: var(--gray-dark) !important;}
+.text-yellow { color: var(--yellow) !important; }
+.text-orange { color: orange !important; }
+.text-blue-royal { color: var(--blue-royal) !important;}
+.text-green {color: var(--green) !important;}
 
 .text-center { text-align: center !important; }
 .text-justify { text-align: justify !important; }
@@ -262,7 +276,11 @@ background: #555;
 .fw-bold { font-weight: 600; }
 .fw-normal { font-weight: normal; }
 
-
+.fs-1 {font-size: 1rem !important;}
+.fs-1-4 {font-size: 1.4rem !important;}
+.fs-2 {font-size: 2rem !important;}
+.fs-3 {font-size: 3rem !important;}
+.fs-4 {font-size: 4rem !important;}
 
 
 /* -------- [ Background ] ------- */
@@ -278,6 +296,8 @@ background: #555;
 .bg-blue-royal { background:var(--blue-royal); }
 .bg-blue {background:var(--blue); }
 .bg-green { background:var(--green);}
+.bg-inherit {background:inherit !important;}
+.bg-white-light {background-color: var(--white-light) !important;}
 
 /* -------- [ Rows & Columns ] ------- */
 
@@ -330,9 +350,9 @@ background: #555;
 
 .border-0 { border: none;}
 .border-1 { border: solid 1rem; }
-.border-bottom { border-bottom: solid 0.5rem white; }
+.border-bottom { border-bottom: solid 1px var(--gray-light); }
 .border-bottom-1 { border-bottom: solid 1rem; }
-.border-right { border-right: solid 1px black;}
+.border-right { border-right: solid 0.5px var(--gray-light);}
 .border-white { border-color: white;}
 
 /* -------- [ Pointer ] ------- */
@@ -344,6 +364,7 @@ background: #555;
 .shadow { box-shadow: var(--shadow);}
 .shadow-sm { box-shadow: var(--shadow-sm); }
 .shadow-lg { box-shadow:var(--shadow-lg); }
+.shadow-none {box-shadow: none !important;}
 
 /* -------- [ Height ] ------- */
 

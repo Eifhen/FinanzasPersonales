@@ -66,11 +66,10 @@
 
 .modal-title {
     margin:0;
-    padding:1rem 2rem;
+    padding:1rem 1rem;
     font-weight: 400;
-    font-size:1.1rem;
-    color: var(--white);
-    border-radius: 50px;
+    font-size:1.2rem;
+    color: var(--gray);
     display:flex;
     align-items: center;
     

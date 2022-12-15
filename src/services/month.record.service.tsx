@@ -22,7 +22,7 @@ class MonthFinanceRecordService {
         });
     }
 
-    Get(id_record:number){
+    Get(id_record:number) : Promise<any>{
         const url = `${PATH}/item-records/get.php?id=${id_record}`;
         const options = { headers:{ 'Authorization':API_KEY }}
         return new Promise((resolve, reject) => {

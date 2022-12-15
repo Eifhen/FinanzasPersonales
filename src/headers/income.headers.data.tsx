@@ -1,9 +1,6 @@
-import { IRecordHeaderObj } from '../components/finance.cardlist.component';
+import { IRecordHeaderObj } from "../components/finance.cardlist.component";
 
-
-
-
-const itemRecordHeaders:IRecordHeaderObj = {
+const incomeHeaders:IRecordHeaderObj = {
     key:"id",
     data: [
         {
@@ -23,8 +20,8 @@ const itemRecordHeaders:IRecordHeaderObj = {
             IsDate:true
         },
         {
-            header:"Cost",  
-            property:"cost", 
+            header:"Income",  
+            property:"income", 
             navigation:false, 
             colWidth:"w-30 ", 
             rowWidth:"w-30 ", 
@@ -34,4 +31,4 @@ const itemRecordHeaders:IRecordHeaderObj = {
 }
 
 
-export default itemRecordHeaders;
+export default incomeHeaders;

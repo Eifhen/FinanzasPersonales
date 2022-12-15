@@ -15,7 +15,7 @@ button:disabled {
 }
 
 button:hover, .btn-link:hover  {
-    opacity:0.7;
+    background-color: var(--gray-light);
 }
 
 button:focus, .btn-link:focus{
@@ -32,14 +32,20 @@ button:focus, .btn-link:focus{
 }
 
 .btn-add {
-    padding:0.5rem 1.5rem 0.5rem 1rem;
-    background-color:var(--green);
-    color:rgba(255, 255, 255, 0.932);
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:0.6rem 1rem 0.6rem 0.6rem;
+    background-color:var(--pure);
+    color:var(--green);
+    font-size: 0.9rem;
     margin:0;
+    border: 1px solid var(--gray-light);
+
+    box-shadow: var(--shadow-sm);
 }
 
-.btn-add i { margin-right: 0.3rem;}
+.btn-add i { margin-right: 0.3rem; font-size: 1rem;}
 
 
 .btn-close {
@@ -56,4 +62,41 @@ button:focus, .btn-link:focus{
     font-size:1rem;
     margin:0;
     color:white;
+}
+
+
+
+.goBack {
+    position: absolute;
+    top: 130px;
+    left: 60px;
+    padding:0.5rem;
+    border-radius: 25px;
+    box-shadow: var(--shadow-sm);
+    background-color: white;
+    font-size: 2rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--blue-royal);
+}
+
+.goBack p {
+    padding: 0 1rem;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.goBack:focus, .goBack:hover {
+    background-color: var(--gray-light);
+}
+
+
+@media(max-width:700px){
+    .goBack {
+        position:static;
+        width:85% !important;
+        margin: 0 auto;
+    }
 }

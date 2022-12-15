@@ -1,0 +1,150 @@
+
+/* **********************
+    ActiveBar
+*************************/
+
+.activebar{
+    z-index: 1;
+    position:fixed;
+    width:auto;
+    min-height:10px;
+    right:40px;
+    bottom:75px;
+    flex:1;
+    border-radius: 25px;
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+.activebar.active {
+    min-height: 250px;
+    opacity: 1;
+    padding: 2.5rem 0;
+    transition: all 1s ease-out;
+}
+
+.activebar.disable {
+    flex:0;
+    opacity: 0;
+    bottom: -10px;
+}
+
+/* **********************
+    ActiveBar Container
+*************************/
+.activebar-container {
+    position: relative;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 100px;
+    padding:1rem 0;
+
+}
+
+
+/* **********************
+    ActiveBar Item
+*************************/
+
+.activebar-item {
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    margin: 0 0 0.5rem auto;
+    height: 40px;
+    width: 40px;
+    box-shadow: var(--shadow);
+    padding: 0.5rem;
+    background-color: white;
+    overflow: hidden;
+    flex:1;
+    transition: all 1s ease-out;
+}
+
+.activebar-item span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem !important;
+}
+
+.activebar-item i {
+    cursor:pointer;
+    font-size: 1rem;
+}
+
+.activebar-item.active {
+    z-index: auto;
+    margin-bottom: 0.5rem;
+    justify-content: start;
+    color:var(--blue-royal);
+    transition: background-color 500ms ease;
+    width:150px;
+    right:40px;
+    transition: all 1s ease;
+    cursor: pointer;
+}
+
+.activebar-item.active:hover {
+    background-color: var(--white);
+}
+
+.activebar-item.active i {
+    font-size: 1.2rem;
+    color:var(--wine);
+    transform: rotate(44deg);
+    transition: all 1s ease;
+}
+
+
+.activebar-item.disable {
+    flex:0;
+    right:40px;
+    padding: 0.5rem;
+}
+
+
+/* **********************
+    ActiveBar Widget
+*************************/
+
+.activebar-widget {
+    z-index: 2;
+    border-radius: 50%;
+    width:45px;
+    height:45px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: fixed;
+    right: 38px;
+    bottom:50px;
+    cursor:pointer;
+    background-color: white;
+}
+
+.activebar-widget:hover{
+    background-color: var(--gray-light);
+}
+.activebar-widget.active:hover{
+    border-color: var(--blue);
+}
+
+.activebar-widget.active:hover i{
+    color:var(--blue);
+}
+
+
+.activebar-widget.active {
+    background-color: var(--pure);
+    border: 4px solid var(--blue-royal);
+    transition: background-color 0.5s ease-in;
+}
+
+.activebar-widget.active i {
+    color: var(--blue-royal);
+}

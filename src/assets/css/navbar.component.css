@@ -5,7 +5,7 @@
     display:flex;
     align-items: center;
     justify-content: center;
-    border-bottom: solid 1px var(--gray-light);
+    /* border-bottom: solid 1px var(--gray-light); */
 }
 
 .navbar-content {
@@ -29,7 +29,7 @@
 .navbar-items li { padding:1rem; }
 
 .navbar-items li a {
-    color:orange;
+    color: var(--gray);
     font-weight: 600;
 }
 
@@ -40,6 +40,11 @@
 }
 
 @media(max-width:700px){
+
+    .navbar {
+        border-bottom: solid 1px var(--gray-light);
+        margin-bottom: 3rem;
+    }
 
     .navbar-content{
         flex-direction: column;
