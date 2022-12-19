@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IGlobalRecord } from '../interfaces/financial.records.interface';
+import { IGlobalRecord, IMonthIncome } from '../interfaces/financial.records.interface';
 import dateHandler from '../helpers/date.helper';
 import SummaryCard from './summary.card.component';
 import { nanoid } from 'nanoid';
@@ -14,8 +14,10 @@ export interface IFinanceCardList<T> {
     globalReport:IGlobalRecord;
     headers:IRecordHeaderObj;
     records:Array<T>;
+    incomes?:Array<IMonthIncome>;
     action(type:string, data:indexObj<T>): void;
     path?:string; // path of navegation
+    incomePath?:string;
     enableIncomeCard?:boolean;
 }
 
@@ -34,6 +36,7 @@ export interface IRecordHeaderObj{
 }
 
 interface IRecordList<T>{
+    type:boolean; // false = record & true = income;
     headers:IRecordHeaderObj;
     records:Array<T>; // tipo de objeto que se renderizará en las filas
     action(type:string, data:indexObj<T>):void;
@@ -42,6 +45,7 @@ interface IRecordList<T>{
 }
 
 interface IRecordItem<T> {
+    type:boolean; // false = record & true = income;
     data:indexObj<T>;
     action(type:string, data:indexObj<T>):void;
     path?:string;
@@ -51,24 +55,26 @@ interface IRecordItem<T> {
 
 export default function FinanceCardList<T extends indexObj<T>>(props:IFinanceCardList<T>) {
 
-    const {records, globalReport} = props;
+    const {records, incomes, globalReport} = props;
     const enableIncomeCard = props.enableIncomeCard ? props.enableIncomeCard : false;
     const IncomeHeaders:IRecordHeaderObj = incomeHeaders;
     const indicator = enableIncomeCard ? "Expendings" : "Records";
-
+    const incomeRecords = incomes ? incomes : [];
+    
     return (         
         <div className="card-content bg-inherit shadow-none">
             <SummaryCard data={globalReport} />
 
-            <IncomeCard enable={enableIncomeCard}>
+            <IncomeCard enable={enableIncomeCard} count={incomeRecords.length}>
                 <>
                     <RecordHeader key={IncomeHeaders.key} data={IncomeHeaders.data}/>
                     <div className="income-container">
-                        <RecordRowList<T> 
-                            headers={props.headers}
-                            records={records} 
+                        <RecordRowList<IMonthIncome>
+                            type={true}
+                            headers={IncomeHeaders}
+                            records={incomeRecords} 
                             action={props.action} 
-                            path={props.path}
+                            path={props.incomePath}
                         />
                     </div>
                 </>
@@ -83,6 +89,7 @@ export default function FinanceCardList<T extends indexObj<T>>(props:IFinanceCar
                 <RecordHeader key={props.headers.key} data={props.headers.data}/>
                 <div className='record-container '>
                     <RecordRowList<T> 
+                        type={false}
                         headers={props.headers}
                         records={records} 
                         action={props.action} 
@@ -115,20 +122,22 @@ function RecordHeader (headers:IRecordHeaderObj){
 }
 
 function RecordRowList<T extends indexObj<T>>(props:IRecordList<T>){
+    if(props.records.length == 0){
+        return (<p className='text-center p-1 bg-gray-light rounded-pill'> No data</p>);
+    }
     return (   
         <>
             {
-                props.records.map((record:T, index) => {
-                    return (
-                        <RecordRow<T>
-                            key={index} 
-                            headers={props.headers}
-                            action={props.action} 
-                            path={props.path} 
-                            data={record} 
-                        />
-                    );
-                })
+                props.records.map((record:T, index) => (
+                    <RecordRow<T>
+                        type={props.type}
+                        key={index} 
+                        headers={props.headers}
+                        action={props.action} 
+                        path={props.path} 
+                        data={record} 
+                    />
+                ))
             }
         </>
     );
@@ -175,11 +184,13 @@ function RecordRow<T>(props:IRecordItem<T>){
     }
 
     function HandleEdit(){
-        action("edit", record);
+        var operation:string = props.type? "edit-income" : "edit";
+        action(operation, record);
     }
 
     function HandleDelete(){
-        action("delete", record);
+        var operation:string = props.type? "delete-income" : "delete";
+        action(operation, record);
     }
 
     return(

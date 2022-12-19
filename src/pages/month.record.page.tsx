@@ -23,11 +23,13 @@ export default function MonthRecordPage(){
 
 function MonthRecordPageContent(){
     const context = useContext(MonthRecordContext);
-    const records = context.allRecords;
+    const records = context.expenses;
+    const incomes = context.incomes;
     const report = context.monthReport;
     const headers = itemRecordHeaders;
     const navigate = useNavigate();
-    const path = `/year-record/${context.id_year_record}/month/${context.id_month_record}/record`;
+    const path = `/year-record/${context.id_year_record}/month/${context.id_month_record}/expense`;
+    const incomePath = `/year-record/${context.id_year_record}/month/${context.id_month_record}/income`;
 
     const GoToPreviousPage = () : void => {
         navigate(`/year-record/${context.id_year_record}`);
@@ -35,14 +37,14 @@ function MonthRecordPageContent(){
 
     const ActionItems = useMemo(() : Array<IActiveBarItem> => [
         {
-            title: "Add Expense",
-            icon: "ri-add-line text-green",
-            action:()=> context.openModal("add")
-        },
-        {
             title: "Add Income",
             icon: "ri-coin-fill text-orange",
             action:()=> context.openModal("add-income")
+        },
+        {
+            title: "Add Expense",
+            icon: "ri-add-line text-green",
+            action:()=> context.openModal("add")
         },
         {
             title: "Go Back",
@@ -60,13 +62,15 @@ function MonthRecordPageContent(){
                     title="Monthly Record" 
                     icon="ri-file-paper-2-line" 
                     subtitle="All the financial record of the month"
-                    elementTitle={report.month}
+                    elementTitle={`${report.month}`}
                 />
 
                 <FinanceCardList<IRecord>
                     path={path}
+                    incomePath={incomePath}
                     headers= { headers }
                     records={ records } 
+                    incomes={ incomes }
                     globalReport={ report } 
                     action={context.openModal} 
                     enableIncomeCard={true}

@@ -63,3 +63,8 @@ export interface IMonthIncome {
 export interface IMonthIncomeObj {
     data:IMonthIncome;
 }
+
+export interface IMonthFinance {
+    incomes:Array<IMonthIncome>;
+    expenses:Array<IRecord>;
+}

@@ -16,11 +16,13 @@ interface MonthRecordProvider {
     form:IRecord;
     incomeForm:IMonthIncome;
     HandleForm(event:any, type?:string): void;
-    allRecords: Array<IRecord>;
+    expenses: Array<IRecord>;
+    incomes: Array<IMonthIncome>;
     monthReport: IMonthRecord;
     id_year_record: number;
     id_month_record: number;
     GetRecord(id_record:number):Promise<any>;
+    GetIncome(id_income:number):Promise<any>;
 }
 
 interface IModalOptions {
@@ -57,7 +59,8 @@ function MonthRecordProvider (props:any){
     const [form, setForm] = useState(emptyForm);
     const [incomeForm, setIncomeForm] = useState(emptyIncomeForm);
     const [monthReport, setMonthReport] = useState({} as IMonthRecord);
-    const [allRecords, setAllRecords] = useState([] as Array<IRecord>);
+    const [expenses, setExpenses] = useState([] as Array<IRecord>);
+    const [incomes, setIncomes] = useState([] as Array<IMonthIncome>);
     const [reload, setReload] = useState<boolean>(false);
     const params = useParams();
     const id_month_record = Number(params.id_month_record);
@@ -68,10 +71,10 @@ function MonthRecordProvider (props:any){
     function GetAllRecords() : void {
         service.GetAll(id_month_record).then((res:Array<IRecord>)=>{
             if(res != undefined){
-                setAllRecords(res);
+                setExpenses(res);
             }
             else{
-                setAllRecords([]);
+                setExpenses([]);
             }
         })
         .catch(console.error);
@@ -79,6 +82,27 @@ function MonthRecordProvider (props:any){
 
     function GetRecord(id_record:number): Promise<any> {
         return service.Get(id_record).then((res:IRecord)=>{
+            if(res != undefined){
+                return res;
+            }
+        })
+        .catch(console.error);
+    }
+
+    function GetAllIncomes() : void {
+        service.GetAllIncomes(id_month_record).then((res:Array<IMonthIncome>)=>{
+            if(res != undefined){
+                setIncomes(res);
+            }
+            else{
+                setIncomes([]);
+            }
+        })
+        .catch(console.error);
+    }
+
+    function GetIncome(id_income:number) : Promise<any> {
+        return service.GetIncome(id_income).then((res:IRecord)=>{
             if(res != undefined){
                 return res;
             }
@@ -99,16 +123,22 @@ function MonthRecordProvider (props:any){
     }
 
     // Gestión de Modals 
-    function openModal(type:string, data:indexObj<IRecord>){
+    function openModal(type:string, data:indexObj<IRecord|IMonthIncome>){
         setModalType(type);
         setModalOpen(true);
         if(interfaceOf<IRecord>(data)){
             setForm(data);
         }
+
+        if(interfaceOf<IMonthIncome>(data)){
+            setIncomeForm(data);
+        }
+
     }
 
     function closeModal(){
         setForm(emptyForm);
+        setIncomeForm(emptyIncomeForm);
         setModalOpen(false);
         setModal((modal:IModal) => { return {...modal, state: "modal-close"}; });
     }
@@ -175,7 +205,7 @@ function MonthRecordProvider (props:any){
             btnTitle:"Delete",
             btnState:false,
             size:"modal-md",
-            title:"Delete Financial Record",
+            title:"Delete Expense Record",
             render:(<p className='p-1'>Are you sure you want to delete this record?</p>),
             modalClose:()=> closeModal(),
             modalConfirm:(event)=> Delete(event),
@@ -230,12 +260,12 @@ function MonthRecordProvider (props:any){
         const deleteData:IModal = {
             state:"modal-show",
             icon:"ri-delete-bin-fill pr-1",
-            mode:modalType,
+            mode:"delete",
             btnColor:"bg-wine",
             btnTitle:"Delete",
             btnState:false,
             size:"modal-md",
-            title:"Delete Financial Record",
+            title:"Delete Income Record",
             render:(<p className='p-1'>Are you sure you want to delete this record?</p>),
             modalClose:()=> closeModal(),
             modalConfirm:(event)=> DeleteIncome(event),
@@ -367,16 +397,96 @@ function MonthRecordProvider (props:any){
     }
 
     // CRUD Month Income
+
     function AddIncome(event:any){
-        console.log("add income");
+        event.preventDefault();
+        if(incomeForm.title && incomeForm.date){
+            incomeForm.id_month_record = id_month_record;
+            service.InsertIncome(incomeForm).then((res) => {
+                setReload(!reload);
+                setModal((modal:IModal) => {
+                    const msg = "The record has been added successfully";
+                    const msgColor = "text-green"
+                    const btnState = true;
+                    return {...modal, msg, msgColor, btnState};
+                })
+            })
+            .catch((err)=>{
+                setModal((modal:IModal) => {
+                    const msg = "there was an error adding the record";
+                    const msgColor = "text-wine"
+                    const btnState = false;
+                    return {...modal, msg, msgColor, btnState};
+                })
+                console.log("err => ", err);
+            })
+
+        }
+        else{
+            setModal((modal:IModal) => {
+                return {...modal, msg: "Enter the corresponding data", msgColor:"text-wine"}
+            });
+        }
     }
 
     function EditIncome(event:any){
-        console.log("edit income");
+        event.preventDefault();
+
+        if(incomeForm.title && incomeForm.date){
+            service.UpdateIncome(incomeForm).then((res) => {
+                setReload(!reload);
+                setModal((modal:IModal) => {
+                    const msg = "The record has been updated successfully";
+                    const msgColor = "text-green"
+                    const btnState = true;
+                    return {...modal, msg, msgColor, btnState};
+                })
+            })
+            .catch((err)=>{
+                setModal((modal:IModal) => {
+                    const msg = "there was an error updating the record";
+                    const msgColor = "text-wine"
+                    const btnState = false;
+                    return {...modal, msg, msgColor, btnState};
+                })
+                console.log("err => ", err);
+            });
+        }
+        else{
+            setModal((modal:IModal) => {
+                return {...modal, msg: "Enter the corresponding data", msgColor:"text-wine"}
+            });
+        }
     }
 
     function DeleteIncome(event:any){
-        console.log("delete income");
+        event.preventDefault();
+        if(incomeForm.title && incomeForm.date){
+            service.DeleteIncome(incomeForm).then((res) => {
+                setReload(!reload);
+                setModal((modal:IModal) => {
+                    const msg = "The record has been deleted successfully";
+                    const msgColor = "text-green"
+                    const btnState = true;
+                    return {...modal, msg, msgColor, btnState};
+                })
+            })
+            .catch((err)=>{
+                setModal((modal:IModal) => {
+                    const msg = "there was an error deleting the record";
+                    const msgColor = "text-wine"
+                    const btnState = false;
+                    return {...modal, msg, msgColor, btnState};
+                })
+                console.log("err => ", err);
+            });
+        }
+        else {
+            setModal((modal:IModal) => {
+                return {...modal, msg: "Enter the corresponding data", msgColor:"text-wine"}
+            });
+        }
+
     }
     
 
@@ -384,17 +494,18 @@ function MonthRecordProvider (props:any){
         if(modalOpen){
             setModal(ModalHandler);
         }
-    }, [form, modalOpen]);
+    }, [form, incomeForm, modalOpen]);
     
     useEffect(()=>{
         GetMonthReport();
         GetAllRecords();
+        GetAllIncomes();
     },[reload]);
 
     const data:MonthRecordProvider = { 
         openModal, modal, form, incomeForm, HandleForm, 
-        allRecords, monthReport, id_year_record, id_month_record,
-        GetRecord,
+        expenses, incomes, monthReport, id_year_record, id_month_record,
+        GetRecord, GetIncome
     };
 
     return(

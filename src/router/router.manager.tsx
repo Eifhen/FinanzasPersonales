@@ -17,7 +17,7 @@ export default function RouterManager (): JSX.Element {
                 <Route path="/global-records" element={<GlobalRecordsPage/>} />
                 <Route path="/year-record/:id" element={<YearRecordPage/>} />
                 <Route path="/year-record/:id_year_record/month/:id_month_record" element={<MonthRecordPage/>}/>
-                <Route path="/year-record/:id_year_record/month/:id_month_record/record/:id_record" element={<RecordDetailPage/>}/>
+                <Route path="/year-record/:id_year_record/month/:id_month_record/:type/:id_record" element={<RecordDetailPage/>}/>
             </Routes>
         </BrowserRouter>
     );
